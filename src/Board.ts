@@ -1,10 +1,12 @@
 export class Board {
   width: number;
   height: number;
+  currentBlock: string | undefined;
 
-  constructor(width: number, height: number) {
+  constructor(width: number, height: number, currentBlock: string ) {
     this.width = width;
     this.height = height;
+    this.currentBlock = currentBlock
   }
   // Print board
   toString() {
@@ -16,5 +18,10 @@ export class Board {
       shape+= '\n'
     }
     return shape;
+  }
+
+  drop(block: string) {
+    this.currentBlock = block
+    return this.currentBlock
   }
 }
