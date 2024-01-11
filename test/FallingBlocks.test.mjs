@@ -7,7 +7,7 @@ describe("Falling blocks", () => {
   beforeEach(() => {
     board = new Board(3, 3);
   });
-//Test 1
+  //Test 1
   test("The board starts empty", () => {
     expect(board.toString()).to.equalShape(
       `...
@@ -20,7 +20,7 @@ describe("Falling blocks", () => {
     beforeEach(() => {
       board.drop("X");
     });
-// Test 2
+    // Test 2
     test("it starts from the top middle", () => {
       expect(board.toString()).to.equalShape(
         `.X.

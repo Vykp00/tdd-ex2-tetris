@@ -17,11 +17,15 @@ export class Board implements Shape {
   // Print board
   toString() {
     if (typeof this.#currentBlock === "string") {
-      return `.${this.#currentBlock}.\n...\n...\n`
+      let outBlock: string = `.${this.#currentBlock}.\n`;
+      this.#height = this.#height - 1;
+      outBlock += shapeToString(this);
+      return outBlock;
+    } else {
+      return shapeToString(this);
     }
-    return shapeToString(this);
   }
   drop(block: string) {
-    return this.#currentBlock = block
+    return (this.#currentBlock = block);
   }
 }
