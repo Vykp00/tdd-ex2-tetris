@@ -1,5 +1,6 @@
 import { Shape, shapeToString } from "./shapeutils";
 export class Board implements Shape {
+  // '#' set hard private
   #width: number;
   #height: number;
   #currentBlock: string | null;
@@ -25,6 +26,7 @@ export class Board implements Shape {
       return shapeToString(this);
     }
   }
+  // Drop block
   drop(block: string) {
     return (this.#currentBlock = block);
   }
