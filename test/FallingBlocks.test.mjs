@@ -7,7 +7,7 @@ describe("Falling blocks", () => {
   beforeEach(() => {
     board = new Board(3, 3);
   });
-
+//Test 1
   test("The board starts empty", () => {
     expect(board.toString()).to.equalShape(
       `...
@@ -16,12 +16,11 @@ describe("Falling blocks", () => {
     );
   });
 
-  /*
   describe("When a block is dropped", () => {
     beforeEach(() => {
       board.drop("X");
     });
-
+// Test 2
     test("it starts from the top middle", () => {
       expect(board.toString()).to.equalShape(
         `.X.
@@ -47,7 +46,6 @@ describe("Falling blocks", () => {
       expect(after).to.equal(before);
     });
   });
-  */
 
   /*
   describe("When a block reaches the bottom", () => {
