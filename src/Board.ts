@@ -1,4 +1,5 @@
-export class Board {
+import { Shape, shapeToString } from "./shapeutils";
+export class Board implements Shape{
   width: number;
   height: number;
 
@@ -8,13 +9,6 @@ export class Board {
   }
   // Print board
   toString() {
-    let shape = '';
-    for (let row = 0; row < this.height; row++) {
-      for (let col = 0; col < this.width; col++) {
-        shape += '.';
-      }
-      shape+= '\n'
-    }
-    return shape;
+    return shapeToString(this)
   }
 }
