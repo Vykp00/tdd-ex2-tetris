@@ -1,6 +1,15 @@
 import { Shape, shapeToString } from "./shapeutils";
 const EMPTY = '.';
-
+class MovableShape implements Shape {
+    #shape: Shape;
+    #row: number;
+    #col: number;
+    constructor(shape: Shape, row: number, col: number) {
+        this.#shape = shape;
+        this.#row = row;
+        this.#col = col;
+    }
+}
 export class Board implements Shape {
   // '#' set hard private
   #width: number;
