@@ -15,7 +15,11 @@ export class Board implements Shape {
   height() {
     return this.#height;
   }
-  // Print board
+  blockSpot(row: number, col: number): string | undefined {
+      return ;
+  }
+
+    // Print board
   toString() {
     if (typeof this.#currentBlock === "string") {
       let outBlock: string = `.${this.#currentBlock}.\n`;
