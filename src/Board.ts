@@ -1,13 +1,20 @@
 import { Shape, shapeToString } from "./shapeutils";
+const EMPTY = '.';
+
 export class Board implements Shape {
   // '#' set hard private
   #width: number;
   #height: number;
   #currentBlock: string | null;
+  #notMoving: string[][];
   constructor(width: number, height: number, currentBlock: string | null) {
     this.#width = width;
     this.#height = height;
     this.#currentBlock = currentBlock;
+    this.#notMoving = new Array(height);
+    for (let row = 0; row < height; row++) {
+        this.#notMoving[row] = new Array(width).fill(EMPTY)
+    }
   }
   width() {
     return this.#width;
@@ -15,8 +22,9 @@ export class Board implements Shape {
   height() {
     return this.#height;
   }
+  // Return Block Position with 'blockSpot'
   blockSpot(row: number, col: number): string | undefined {
-      return ;
+      return this.#notMoving[row][col];
   }
 
     // Print board

@@ -14,5 +14,5 @@ export function shapeToString(inShape: Shape) {
     outShape += "\n";
     outShape2 += "\n";
   }
-  return outShape;
+  return outShape, outShape2;
 }
