@@ -1,5 +1,6 @@
 import { Shape, shapeToString } from "./shapeutils";
 const EMPTY = '.';
+// MovableShape render each block in Board class
 class MovableShape implements Shape {
     #shape: Shape;
     #row: number;
@@ -8,6 +9,15 @@ class MovableShape implements Shape {
         this.#shape = shape;
         this.#row = row;
         this.#col = col;
+    }
+    blockSpot(row: number, col: number): string | undefined {
+        return;
+    }
+    height(): number {
+        return this.#row + this.#shape.height();
+    }
+    width(): number {
+        return this.#col + this.#shape.width();
     }
 }
 export class Board implements Shape {
