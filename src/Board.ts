@@ -2,6 +2,11 @@ import { Shape, shapeToString } from "./shapeutils";
 const EMPTY = ".";
 
 class Block implements Shape {
+    #block
+    constructor(block: string) {
+        this.#block = block
+    }
+
     width(): number {
         return 1;
     }
@@ -9,15 +14,17 @@ class Block implements Shape {
         return 1;
     }
     blockSpot(row: number, col: number): string | undefined {
-        return ;
+        if (row === 0 && col === 0) {
+            return this.#block;
+        }
     }
 }
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
-  #shape: Shape | string;
+  #shape: Shape ;
   #row: number;
   #col: number;
-  constructor(shape: Shape | string, row: number, col: number) {
+  constructor(shape: Shape , row: number, col: number) {
     this.#shape = shape;
     this.#row = row;
     this.#col = col;
@@ -58,9 +65,8 @@ export class Board implements Shape {
   // Drop block
    drop(newBlock: Shape | string) {
       if (typeof newBlock === "string") {
-          this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - 1))/2)
-      }
-      return (this.#currentBlock = newBlock);
+          newBlock = new Block(newBlock)
+      }this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
   width() {
     return this.#width;
@@ -70,17 +76,15 @@ export class Board implements Shape {
   }
   // Return Block Position with 'blockSpot'
   blockSpot(row: number, col: number): string | undefined {
-    return this.#notMoving[row][col];
+      if (this.#falling) {
+          const block = this.#falling.blockSpot(row, col)
+          if (block !== EMPTY) {
+              return block
+          }
+      } return this.#notMoving[row][col];
   }
   // Print board
   toString() {
-    if (typeof this.#currentBlock === "string") {
-      let outBlock: string = `.${this.#currentBlock}.\n`;
-      this.#height = this.#height - 1;
-      outBlock += shapeToString(this);
-      return outBlock;
-    } else {
       return shapeToString(this);
     }
-  }
 }
