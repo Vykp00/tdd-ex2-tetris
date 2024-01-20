@@ -78,6 +78,10 @@ export class Board implements Shape {
       const step = this.#falling!.blockDescent()
       this.#falling = step
   }
+
+  hasFalling() {
+      return this.#falling !== null;
+  }
   width(): number {
     return this.#width;
   }
