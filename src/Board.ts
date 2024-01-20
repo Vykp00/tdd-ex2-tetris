@@ -69,7 +69,10 @@ export class Board implements Shape {
    drop(newBlock: Shape | string) {
       if (typeof newBlock === "string") {
           newBlock = new Block(newBlock)
-      }this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
+      } if (this.#falling) {
+          throw new Error('already falling')
+       }
+      this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
   tick() {
       const step = this.#falling!.blockDescent()
