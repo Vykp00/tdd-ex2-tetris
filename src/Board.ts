@@ -10,8 +10,18 @@ class MovableShape implements Shape {
         this.#row = row;
         this.#col = col;
     }
+    // return shape position
     blockSpot(row: number, col: number): string | undefined {
-        return;
+        if (
+            row >= this.#row &&
+            row < this.height() &&
+            col >= this.#col &&
+            col < this.width()
+        ) {
+            return this.#shape.blockSpot(row - this.#row, col - this.#col);
+        } else {
+            return  EMPTY
+        }
     }
     height(): number {
         return this.#row + this.#shape.height();
