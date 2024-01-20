@@ -68,10 +68,14 @@ export class Board implements Shape {
           newBlock = new Block(newBlock)
       }this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
-  width() {
+  tick() {
+      const block = new Block("X")
+      this.#falling = new MovableShape(block, 1, 1)
+  }
+  width(): number {
     return this.#width;
   }
-  height() {
+  height(): number {
     return this.#height;
   }
   // Return Block Position with 'blockSpot'
