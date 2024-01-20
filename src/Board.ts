@@ -1,34 +1,29 @@
 import { Shape, shapeToString } from "./shapeutils";
-const EMPTY = '.';
+const EMPTY = ".";
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
-    #shape: Shape;
-    #row: number;
-    #col: number;
-    constructor(shape: Shape, row: number, col: number) {
-        this.#shape = shape;
-        this.#row = row;
-        this.#col = col;
+  #shape: Shape;
+  #row: number;
+  #col: number;
+  constructor(shape: Shape, row: number, col: number) {
+    this.#shape = shape;
+    this.#row = row;
+    this.#col = col;
+  }
+  // return shape position
+  blockSpot(row: number, col: number): string | undefined {
+    if (row >= this.#row && row < this.height() && col >= this.#col && col < this.width()) {
+      return this.#shape.blockSpot(row - this.#row, col - this.#col);
+    } else {
+      return EMPTY;
     }
-    // return shape position
-    blockSpot(row: number, col: number): string | undefined {
-        if (
-            row >= this.#row &&
-            row < this.height() &&
-            col >= this.#col &&
-            col < this.width()
-        ) {
-            return this.#shape.blockSpot(row - this.#row, col - this.#col);
-        } else {
-            return  EMPTY
-        }
-    }
-    height(): number {
-        return this.#row + this.#shape.height();
-    }
-    width(): number {
-        return this.#col + this.#shape.width();
-    }
+  }
+  height(): number {
+    return this.#row + this.#shape.height();
+  }
+  width(): number {
+    return this.#col + this.#shape.width();
+  }
 }
 export class Board implements Shape {
   // '#' set hard private
@@ -42,7 +37,7 @@ export class Board implements Shape {
     this.#currentBlock = currentBlock;
     this.#notMoving = new Array(height);
     for (let row = 0; row < height; row++) {
-        this.#notMoving[row] = new Array(width).fill(EMPTY)
+      this.#notMoving[row] = new Array(width).fill(EMPTY);
     }
   }
   width() {
@@ -53,10 +48,10 @@ export class Board implements Shape {
   }
   // Return Block Position with 'blockSpot'
   blockSpot(row: number, col: number): string | undefined {
-      return this.#notMoving[row][col];
+    return this.#notMoving[row][col];
   }
 
-    // Print board
+  // Print board
   toString() {
     if (typeof this.#currentBlock === "string") {
       let outBlock: string = `.${this.#currentBlock}.\n`;
