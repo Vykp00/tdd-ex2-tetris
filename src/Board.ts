@@ -2,10 +2,10 @@ import { Shape, shapeToString } from "./shapeutils";
 const EMPTY = ".";
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
-  #shape: Shape;
+  #shape: Shape | string;
   #row: number;
   #col: number;
-  constructor(shape: Shape, row: number, col: number) {
+  constructor(shape: Shape | string, row: number, col: number) {
     this.#shape = shape;
     this.#row = row;
     this.#col = col;
@@ -31,6 +31,8 @@ export class Board implements Shape {
   #height: number;
   #currentBlock: string | null;
   #notMoving: string[][];
+  #falling: MovableShape | null = null;
+
   constructor(width: number, height: number, currentBlock: string | null) {
     this.#width = width;
     this.#height = height;
@@ -39,6 +41,14 @@ export class Board implements Shape {
     for (let row = 0; row < height; row++) {
       this.#notMoving[row] = new Array(width).fill(EMPTY);
     }
+  }
+
+  // Drop block
+   drop(newBlock: Shape | string) {
+      if (typeof newBlock === "string") {
+          this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - 1))/2)
+      }
+      return (this.#currentBlock = newBlock);
   }
   width() {
     return this.#width;
@@ -50,7 +60,6 @@ export class Board implements Shape {
   blockSpot(row: number, col: number): string | undefined {
     return this.#notMoving[row][col];
   }
-
   // Print board
   toString() {
     if (typeof this.#currentBlock === "string") {
@@ -61,9 +70,5 @@ export class Board implements Shape {
     } else {
       return shapeToString(this);
     }
-  }
-  // Drop block
-  drop(block: string) {
-    return (this.#currentBlock = block);
   }
 }
