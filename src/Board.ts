@@ -43,6 +43,20 @@ class MovableShape implements Shape {
   blockDescent(): MovableShape {
       return new MovableShape(this.#shape, this.#row + 1, this.#col)
   }
+
+  // Tetris Block Position
+  tetrisBlock() {
+      const points : any[] = [];
+      for (let row: number = this.#row; row < this.#row + this.#shape.height(); row++) {
+          for (let col: number = this.#col; col < this.#shape.width(); col++) {
+              const block : string | undefined = this.blockSpot(row, col);
+              if (block !== EMPTY) {
+                  points.push(new Point(row, col));
+              }
+          }
+      }
+      return points
+  }
   // return shape position
   blockSpot(row: number, col: number): string | undefined {
     if (row >= this.#row && row < this.height() && col >= this.#col && col < this.width()) {
@@ -66,7 +80,7 @@ export class Board implements Shape {
   #falling: MovableShape | null = null;
   #tickCount: number = 0;
 
-  constructor(width: number, height: number, currentBlock: string | null) {
+  constructor(width: number, height: number) {
     this.#width = width;
     this.#height = height;
     this.#notMoving = new Array(height);
