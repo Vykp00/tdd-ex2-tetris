@@ -29,6 +29,8 @@ class MovableShape implements Shape {
     this.#row = row;
     this.#col = col;
   }
+
+  // Move Block Down
   blockDescent(): MovableShape {
       return new MovableShape(this.#shape, this.#row + 1, this.#col)
   }
@@ -53,6 +55,7 @@ export class Board implements Shape {
   #height: number;
   #notMoving: string[][];
   #falling: MovableShape | null = null;
+  #tickCount: number = 0;
 
   constructor(width: number, height: number, currentBlock: string | null) {
     this.#width = width;
@@ -72,14 +75,26 @@ export class Board implements Shape {
        }
       this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
-
   tick(): void {
+      this.#tickCount +=1
       const step = this.#falling!.blockDescent()
-      this.#falling = step
+      if (this.#tickCount >= this.height()) {
+          this.#stopFalling()
+      } else {
+          this.#falling = step
+      }
   }
 
   #hitFloor(falling: MovableShape): boolean {
       return true
+  }
+  #stopFalling() {
+      for (let row = 0; row < this.height(); row++) {
+          for (let col = 0; col < this.width(); col++) {
+              this.#notMoving[row][col] = this.blockSpot(row, col) as string;
+          }
+      }
+      this.#falling = null;
   }
   hasFalling() {
       return this.#falling !== null;
