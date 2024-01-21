@@ -45,10 +45,10 @@ class MovableShape implements Shape {
   }
 
   // Tetris Block Position
-  tetrisBlock() {
+  tetrisBlocks() {
       const points : any[] = [];
       for (let row: number = this.#row; row < this.#row + this.#shape.height(); row++) {
-          for (let col: number = this.#col; col < this.#shape.width(); col++) {
+          for (let col: number = this.#col; col < this.#col + this.#shape.width(); col++) {
               const block : string | undefined = this.blockSpot(row, col);
               if (block !== EMPTY) {
                   points.push(new Point(row, col));
@@ -101,7 +101,7 @@ export class Board implements Shape {
   tick(): void {
       this.#tickCount +=1
       const step = this.#falling!.blockDescent()
-      if (this.#tickCount >= this.height()) {
+      if (this.#tickCount >= this.height() && (this.#hitFloor(step) || this.#stopMoving(step))) {
           this.#stopFalling()
       } else {
           this.#falling = step
@@ -110,7 +110,7 @@ export class Board implements Shape {
 
   // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
-      for (const block of falling.tetrisBlock()) {
+      for (const block of falling.tetrisBlocks()) {
           if (block.row >= this.height()) {
               return true;
           }
@@ -120,8 +120,8 @@ export class Board implements Shape {
 
   // Block stop moving after hitting bottom
   #stopMoving(falling: MovableShape) {
-      for (const block of falling.tetrisBlock()) {
-          if (this.#notMoving[block.row][block.row] !== EMPTY) {
+      for (const block of falling.tetrisBlocks()) {
+          if (this.#notMoving[block.row][block.col] !== EMPTY) {
               return true;
           }
       }
