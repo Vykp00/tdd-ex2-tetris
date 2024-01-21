@@ -108,8 +108,14 @@ export class Board implements Shape {
       }
   }
 
+  // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
-      return true
+      for (const block of falling.tetrisBlock()) {
+          if (block.row >= this.height()) {
+              return true
+          }
+      }
+      return false;
   }
   #stopFalling() {
       for (let row = 0; row < this.height(); row++) {
