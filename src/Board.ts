@@ -51,14 +51,12 @@ export class Board implements Shape {
   // '#' set hard private
   #width: number;
   #height: number;
-  #currentBlock: string | null;
   #notMoving: string[][];
   #falling: MovableShape | null = null;
 
   constructor(width: number, height: number, currentBlock: string | null) {
     this.#width = width;
     this.#height = height;
-    this.#currentBlock = currentBlock;
     this.#notMoving = new Array(height);
     for (let row = 0; row < height; row++) {
       this.#notMoving[row] = new Array(width).fill(EMPTY);
@@ -74,11 +72,15 @@ export class Board implements Shape {
        }
       this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
-  tick() {
+
+  tick(): void {
       const step = this.#falling!.blockDescent()
       this.#falling = step
   }
 
+  #hitFloor(falling: MovableShape): boolean {
+      return true
+  }
   hasFalling() {
       return this.#falling !== null;
   }
