@@ -78,7 +78,6 @@ export class Board implements Shape {
   #height: number;
   #notMoving: string[][];
   #falling: MovableShape | null = null;
-  #tickCount: number = 0;
 
   constructor(width: number, height: number) {
     this.#width = width;
@@ -99,9 +98,11 @@ export class Board implements Shape {
       this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
   }
   tick(): void {
-      this.#tickCount +=1
+      if (!this.hasFalling()) {
+          return;
+      }
       const step = this.#falling!.blockDescent()
-      if (this.#tickCount >= this.height() && (this.#hitFloor(step) || this.#stopMoving(step))) {
+      if (this.#hitFloor(step) || this.#stopMoving(step)) {
           this.#stopFalling()
       } else {
           this.#falling = step
