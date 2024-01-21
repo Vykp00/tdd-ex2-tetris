@@ -1,6 +1,15 @@
 import { Shape, shapeToString } from "./shapeutils";
 const EMPTY = ".";
 
+class Point {
+    row: number;
+    col: number;
+
+    constructor(row: number, col: number) {
+        this.row = row;
+        this.col = col;
+    }
+}
 class Block implements Shape {
     #block
     constructor(block: string) {
