@@ -112,7 +112,17 @@ export class Board implements Shape {
   #hitFloor(falling: MovableShape): boolean {
       for (const block of falling.tetrisBlock()) {
           if (block.row >= this.height()) {
-              return true
+              return true;
+          }
+      }
+      return false;
+  }
+
+  // Block stop moving after hitting bottom
+  #stopMoving(falling: MovableShape) {
+      for (const block of falling.tetrisBlock()) {
+          if (this.#notMoving[block.row][block.row] !== EMPTY) {
+              return true;
           }
       }
       return false;
