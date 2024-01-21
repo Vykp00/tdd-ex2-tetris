@@ -16,8 +16,8 @@ describe("Rotating 3x3 shape", () => {
        GHI`
     );
   });
-
-  test.skip("can be rotated right/clockwise", () => {
+// ABC\nDEF\nGHI\n
+  test("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `GDA
        HEB
