@@ -1,3 +1,11 @@
+function shapeArray(size: number): any[][] {
+    // Return srring shape to array
+    const array = new Array(size);
+    for (let row = 0; row < size; row++) {
+        array[row] = new Array(size);
+    }
+    return array;
+}
 export class RotatingShape {
     shape: string
     shape2: string[][];
