@@ -14,16 +14,25 @@ export class Tetromino implements Shape {
         directions: number | RotatingShape[],
         initialShape?: string
     ) {
-        directions = directions as number;
-        this.#initDirection = initDirection;
-        const shape = new RotatingShape(initialShape);
-        this.#directions = [
-            shape,
-            shape.rotateRight(),
-        ].slice(0, directions as number);
+        if (typeof initialShape === 'string') {
+            directions = directions as number;
+            this.#initDirection = initDirection;
+            const shape = new RotatingShape(initialShape);
+            this.#directions = [
+                shape,
+                shape.rotateRight(),
+            ].slice(0, directions as number);
+        } else {
+            directions = directions as RotatingShape[];
+            this.#initDirection = (initDirection + directions.length) % directions.length;
+            this.#directions = directions
+        }
     }
     #shape() {
         return this.#directions[this.#initDirection];
+    }
+    rotateRight() {
+        return new Tetromino(this.#initDirection + 1, this.#directions);
     }
     toString() {
         return this.#shape().toString();
