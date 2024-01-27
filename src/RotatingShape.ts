@@ -1,4 +1,4 @@
-import {Shape} from "./shapeutils";
+import {Shape, shapeToString} from "./shapeutils";
 
 function shapeArray(size: number): any[][] {
     // Return srring shape to array
@@ -47,6 +47,9 @@ export class RotatingShape implements Shape {
         return new RotatingShape(rotated2, rotated2, 2)
     }
     toString(){
+        if (typeof this.#shape2 === 'string[][]') {
+            return shapeToString(this);
+        }
         if (this.direction === 1 || this.direction === 2) {
             return this.#shape
         } else {return this.tetro}
