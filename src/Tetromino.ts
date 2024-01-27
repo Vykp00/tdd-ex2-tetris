@@ -50,6 +50,16 @@ export class Tetromino implements Shape {
     rotateLeft() {
         return new Tetromino(this.#initDirection -1, this.#directions);
     }
+    width(): number{
+        return this.#shape().width();
+    }
+    height(): number {
+        return this.#shape().height();
+    }
+    blockSpot(row: number, col: number): string | undefined {
+        return this.#shape().blockSpot(row, col)
+    }
+
     toString() {
         return this.#shape().toString();
     }
