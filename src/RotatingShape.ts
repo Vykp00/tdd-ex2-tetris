@@ -56,14 +56,17 @@ export class RotatingShape implements Shape {
         }
     }
     rotateLeft() {
-        const rotated2 = this.tetro.slice(2,3)+this.tetro.slice(6,7)+this.tetro.slice(-2,-1)+'\n'+this.tetro.slice(1,2)+this.tetro.slice(5,6)+this.tetro.slice(-3,-2)+'\n'+this.tetro.slice(0,1)+this.tetro.slice(4,5)+this.tetro.slice(-4,-3)+'\n'
-        return new RotatingShape(rotated2, rotated2, 2)
+        if (typeof this.#shape2 === 'string[][]') {
+            return this.rotateRight().rotateRight().rotateRight();
+        } else {
+            const rotated2 = this.tetro.slice(2, 3) + this.tetro.slice(6, 7) + this.tetro.slice(-2, -1) + '\n' + this.tetro.slice(1, 2) + this.tetro.slice(5, 6) + this.tetro.slice(-3, -2) + '\n' + this.tetro.slice(0, 1) + this.tetro.slice(4, 5) + this.tetro.slice(-4, -3) + '\n'
+            return new RotatingShape(rotated2, rotated2, 2)
+        }
     }
     toString(){
         if (typeof this.#shape2 === 'string[][]') {
             return shapeToString(this);
-        }
-        if (this.direction === 1 || this.direction === 2) {
+        } else if (this.direction === 1 || this.direction === 2) {
             return this.#shape
         } else {return this.tetro}
     }
