@@ -6,13 +6,20 @@ export class Tetromino implements Shape {
         4,
         '.T.\nTTT\n...\n'
     );
-    #initDirection: number;
-    #directions: RotatingShape[];
 
     static I_SHAPE = new Tetromino(
         0,
         2,
-        '.....\n.....\nIIII.\n.....\n.....\n')
+        '.....\n.....\nIIII.\n.....\n.....\n');
+
+    static O_SHAPE = new Tetromino(
+        0,
+        1,
+        '.OO\n.OO\n...\n');
+
+    #initDirection: number;
+    #directions: RotatingShape[];
+
     constructor(
         initDirection: number,
         directions: number | RotatingShape[],
