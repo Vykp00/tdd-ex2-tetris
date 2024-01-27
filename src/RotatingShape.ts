@@ -8,7 +8,16 @@ function shapeArray(size: number): any[][] {
     }
     return array;
 }
-
+function convertRotateRight(shape: string[][]) {
+    const size = shape.length;
+    const rotated = shapeArray(size);
+    for (let row = 0; row < size; row++) {
+        for (let column = 0; column < size; column++) {
+            rotated[row][column] = shape[size - 1 - column][row];
+        }
+    }
+    return new RotatingShape(rotated, rotated, 0);
+}
 export class RotatingShape implements Shape {
     #shape: string
     #shape2: string[][];
