@@ -9,6 +9,10 @@ export class Tetromino implements Shape {
     #initDirection: number;
     #directions: RotatingShape[];
 
+    static I_SHAPE = new Tetromino(
+        0,
+        1,
+        '.....\n.....\nIIII.\n.....\n.....\n')
     constructor(
         initDirection: number,
         directions: number | RotatingShape[],
