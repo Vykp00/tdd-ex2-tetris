@@ -11,7 +11,7 @@ export class Tetromino implements Shape {
 
     static I_SHAPE = new Tetromino(
         0,
-        1,
+        2,
         '.....\n.....\nIIII.\n.....\n.....\n')
     constructor(
         initDirection: number,
