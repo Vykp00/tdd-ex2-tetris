@@ -48,8 +48,12 @@ export class RotatingShape implements Shape {
     }
 
     rotateRight() {
+        if (typeof this.#shape2 === 'string[][]') {
+            return convertRotateRight(this.#shape2);
+        } else {
         const rotated = this.tetro.slice(-4,-3)+this.tetro.slice(4,5)+this.tetro.slice(0,1)+'\n'+this.tetro.slice(-3,-2)+this.tetro.slice(5,6)+this.tetro.slice(1,2)+'\n'+this.tetro.slice(-2,-1)+this.tetro.slice(6,7)+this.tetro.slice(2,3)+'\n'
         return new RotatingShape(rotated, rotated, 1)
+        }
     }
     rotateLeft() {
         const rotated2 = this.tetro.slice(2,3)+this.tetro.slice(6,7)+this.tetro.slice(-2,-1)+'\n'+this.tetro.slice(1,2)+this.tetro.slice(5,6)+this.tetro.slice(-3,-2)+'\n'+this.tetro.slice(0,1)+this.tetro.slice(4,5)+this.tetro.slice(-4,-3)+'\n'
