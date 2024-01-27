@@ -1,7 +1,7 @@
 import {Shape, shapeToString} from "./shapeutils";
 
 function shapeArray(size: number): any[][] {
-    // Return srring shape to array
+    // Return string shape to array
     const array = new Array(size);
     for (let row = 0; row < size; row++) {
         array[row] = new Array(size);
