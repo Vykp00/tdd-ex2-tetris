@@ -12,7 +12,7 @@ export class Tetromino implements Shape {
     constructor(
         initDirection: number,
         directions: number | RotatingShape[],
-        initialShape?: string
+        initialShape?: string,
     ) {
         if (typeof initialShape === 'string') {
             directions = directions as number;
@@ -21,6 +21,8 @@ export class Tetromino implements Shape {
             this.#directions = [
                 shape,
                 shape.rotateRight(),
+                shape.rotateRight().rotateRight(),
+                shape.rotateRight().rotateRight().rotateRight(),
             ].slice(0, directions as number);
         } else {
             directions = directions as RotatingShape[];
@@ -33,6 +35,9 @@ export class Tetromino implements Shape {
     }
     rotateRight() {
         return new Tetromino(this.#initDirection + 1, this.#directions);
+    }
+    rotateLeft() {
+        return new Tetromino(this.#initDirection -1, this.#directions);
     }
     toString() {
         return this.#shape().toString();
