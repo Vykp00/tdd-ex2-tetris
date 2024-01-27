@@ -10,7 +10,7 @@ function shapeArray(size: number): any[][] {
 }
 
 export class RotatingShape implements Shape {
-    shape: string
+    #shape: string
     #shape2: string[][];
     tetro: string
     direction: number | null
@@ -24,12 +24,18 @@ export class RotatingShape implements Shape {
       } else {
         this.#shape2 =shape2
       }
-        this.shape = shape
-        this.tetro = this.shape.slice(0,4)+this.shape.slice(9,13)+ this.shape.slice(18,22)+'\n'
+        this.#shape = shape
+        this.tetro = this.#shape.slice(0,4)+this.#shape.slice(9,13)+ this.#shape.slice(18,22)+'\n'
         this.direction = direction
     }
     width(): number {
         return this.#shape2[0].length;
+    }
+    height(): number {
+        return this.#shape2.length;
+    }
+    blockSpot(row: number, col: number): string | undefined {
+        return this.#shape2[row][col];
     }
 
     rotateRight() {
@@ -42,7 +48,7 @@ export class RotatingShape implements Shape {
     }
     toString(){
         if (this.direction === 1 || this.direction === 2) {
-            return this.shape
+            return this.#shape
         } else {return this.tetro}
     }
 }
