@@ -4,8 +4,7 @@ export class Tetromino implements Shape {
     static T_SHAPE = new Tetromino(
         0,
         4,
-        '.T.\nTTT\n...\n'
-    );
+        '.T.\nTTT\n...\n');
 
     static I_SHAPE = new Tetromino(
         0,

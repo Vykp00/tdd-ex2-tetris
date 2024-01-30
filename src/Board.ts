@@ -95,7 +95,7 @@ export class Board implements Shape {
       } if (this.#falling) {
           throw new Error('already falling')
        }
-      this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width()))/2)
+      this.#falling = new MovableShape(newBlock, 0, Math.floor((this.#width - newBlock.width())/2))
   }
   tick(): void {
       if (!this.hasFalling()) {
