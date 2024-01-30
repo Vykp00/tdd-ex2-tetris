@@ -121,11 +121,28 @@ export class Board implements Shape {
   }
 
   moveLeft(): void {
-    this.#falling = this.#falling!.moveLeft()
+    if (!this.hasFalling()) {
+      return;
+    }
+    const goLeft : MovableShape = this.#falling!.moveLeft();
+    if (this.#hitWall(goLeft) || this.#stopMoving(goLeft)) {
+      return; // set StopMoving?
+    } else {
+      this.#falling = goLeft;
+    }
   }
 
   moveRight(): void {
     this.#falling = this.#falling!.moveRight()
+  }
+  // Player cannot move block to left or right when it hit the wall
+  #hitWall(falling: MovableShape): boolean {
+    for (const block of falling.tetrisBlocks()) {
+      if (block.col >= this.width()) {
+        return true;
+      }
+    }
+    return false;
   }
   // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
