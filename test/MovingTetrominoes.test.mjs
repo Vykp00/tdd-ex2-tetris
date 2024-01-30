@@ -3,6 +3,11 @@ import { expect } from "chai";
 import { Board } from "../src/Board";
 import { Tetromino } from "../src/Tetromino";
 
+function moveBeyondLeft(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveLeft();
+  }
+}
 describe("A Falling Tetromino", () => {
   let board;
   beforeEach( () => {
@@ -21,7 +26,7 @@ describe("A Falling Tetromino", () => {
       ..........
       ..........
       ..........`
-    )
+    );
   });
   test("can be moved right", () => {
     board.drop(Tetromino.T_SHAPE);
@@ -35,7 +40,7 @@ describe("A Falling Tetromino", () => {
       ..........
       ..........
       ..........`
-    )
+    );
   });
   test("can be moved down", () => {
     board.drop(Tetromino.O_SHAPE);
@@ -49,6 +54,25 @@ describe("A Falling Tetromino", () => {
        ....OO....
        ..........
        ..........`
-    )
-  })
+    );
+  });
+});
+
+describe("Tetromino cannot be moved beyond the board", () => {
+  let board;
+  beforeEach( () => {
+    board = new Board(6, 4);
+  });
+  test("cannot be moved Left anymore", () => {
+    board.drop(Tetromino.O_SHAPE);
+    board.tick();
+    moveBeyondLeft(board);
+
+    expect(board.toString()).to.equalShape(
+     `......
+     OO....
+     OO....
+     ......`
+    );
+  });
 });
