@@ -1,4 +1,5 @@
 import { Shape, shapeToString } from "./shapeutils";
+
 const EMPTY = ".";
 
 class Point {
@@ -44,6 +45,10 @@ class MovableShape implements Shape {
       return new MovableShape(this.#shape, this.#row + 1, this.#col)
   }
 
+  // Move Block to Left
+  moveLeft(): MovableShape {
+    return new MovableShape(this.#shape, this.#row, this.#col -1);
+  }
   // Tetris Block Position
   tetrisBlocks() {
       const points : any[] = [];
@@ -109,6 +114,9 @@ export class Board implements Shape {
       }
   }
 
+  moveLeft(): void {
+    this.#falling = this.#falling!.moveLeft()
+  }
   // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
       for (const block of falling.tetrisBlocks()) {
