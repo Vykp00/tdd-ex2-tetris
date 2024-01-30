@@ -7,10 +7,10 @@ describe("A Falling Tetromino", () => {
   let board;
   beforeEach( () => {
     board = new Board(10, 6);
-    board.drop(Tetromino.T_SHAPE);
   });
 
   test("can be moved left", () => {
+    board.drop(Tetromino.T_SHAPE);
     board.tick()
     board.moveLeft();
 
@@ -24,14 +24,15 @@ describe("A Falling Tetromino", () => {
     )
   });
   test("can be moved right", () => {
+    board.drop(Tetromino.T_SHAPE);
     board.tick()
     board.moveRight();
 
     expect(board.toString()).to.equalShape(
       `..........
+      .....T....
+      ....TTT...
       ..........
-      ....T.....
-      ...TTT....
       ..........
       ..........`
     )
