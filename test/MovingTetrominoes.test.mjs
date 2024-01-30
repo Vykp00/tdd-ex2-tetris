@@ -23,4 +23,17 @@ describe("A Falling Tetromino", () => {
       ..........`
     )
   });
+  test("can be moved right", () => {
+    board.tick()
+    board.moveRight();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+      ..........
+      ....T.....
+      ...TTT....
+      ..........
+      ..........`
+    )
+  })
 });
