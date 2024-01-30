@@ -11,7 +11,7 @@ describe("A Falling Tetromino", () => {
 
   test("can be moved left", () => {
     board.drop(Tetromino.T_SHAPE);
-    board.tick()
+    board.tick();
     board.moveLeft();
 
     expect(board.toString()).to.equalShape(
@@ -25,7 +25,7 @@ describe("A Falling Tetromino", () => {
   });
   test("can be moved right", () => {
     board.drop(Tetromino.T_SHAPE);
-    board.tick()
+    board.tick();
     board.moveRight();
 
     expect(board.toString()).to.equalShape(
@@ -35,6 +35,20 @@ describe("A Falling Tetromino", () => {
       ..........
       ..........
       ..........`
+    )
+  });
+  test("can be moved down", () => {
+    board.drop(Tetromino.O_SHAPE);
+    board.tick();
+    board.tick();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ....OO....
+       ....OO....
+       ..........
+       ..........`
     )
   })
 });
