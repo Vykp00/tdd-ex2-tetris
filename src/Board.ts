@@ -49,6 +49,12 @@ class MovableShape implements Shape {
   moveLeft(): MovableShape {
     return new MovableShape(this.#shape, this.#row, this.#col -1);
   }
+
+  // Move Block to Right
+  moveRight(): MovableShape {
+    return new MovableShape(this.#shape, this.#row, this.#col +1);
+  }
+
   // Tetris Block Position
   tetrisBlocks() {
       const points : any[] = [];
@@ -116,6 +122,10 @@ export class Board implements Shape {
 
   moveLeft(): void {
     this.#falling = this.#falling!.moveLeft()
+  }
+
+  moveRight(): void {
+    this.#falling = this.#falling!.moveRight()
   }
   // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
