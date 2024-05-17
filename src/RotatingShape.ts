@@ -5,7 +5,7 @@ const EMPTY = ".";
 function shapeArray(size: number): string[][] {
     return Array.from({ length: size }, () => Array(size).fill(EMPTY));
 }
-function convertRotateRight(shape: string[][]) {
+function rotateRight(shape: string[][]) {
     const size = shape.length;
     const rotated = shapeArray(size);
     for (let row = 0; row < size; row++) {
@@ -13,38 +13,40 @@ function convertRotateRight(shape: string[][]) {
             rotated[row][col] = shape[size - 1 - col][row];
         }
     }
-    return new RotatingShape(rotated);
+    return rotated;
 }
 export class RotatingShape implements Shape {
     #shape2: string[][];
-    constructor(shape2: string | string[][]) {
-      if (typeof shape2 === 'string') {
-        this.#shape2 = shape2
+    private readonly shape: string[][];
+
+    constructor(shape: string | string[][]) {
+      if (typeof shape === 'string') {
+        this.shape = shape
           .replaceAll(' ', '') // Remove space between letter
           .trim() // removes whitespace from both ends of string
           .split('\n') // split each row
           .map((row) => row.split(''));
       } else {
-        this.#shape2 =shape2
+        this.shape = shape;
       }
     }
     width(): number {
-        return this.#shape2[0].length;
+        return this.shape[0].length;
     }
     height(): number {
-        return this.#shape2.length;
+        return this.shape.length;
     }
     blockSpot(row: number, col: number): string | undefined {
-        return this.#shape2[row][col];
+        return this.shape[row][col];
     }
 
-    rotateRight() {
-        return convertRotateRight(this.#shape2);
+    rotateRight(): RotatingShape {
+        return new RotatingShape(rotateRight(this.shape));
     }
-    rotateLeft() {
+    rotateLeft(): RotatingShape {
         return this.rotateRight().rotateRight().rotateRight();
     }
-    toString(){
+    toString(): string {
         return shapeToString(this);
     }
 }
