@@ -25,8 +25,6 @@ export class Tetromino implements Shape {
         initialShape?: string,
     ) {
         if (typeof initialShape === 'string') {
-            directions = directions as number;
-            this.initDirection = initDirection;
             const shape = new RotatingShape(initialShape);
             this.directions = [
                 shape,
@@ -35,10 +33,9 @@ export class Tetromino implements Shape {
                 shape.rotateRight().rotateRight().rotateRight(),
             ].slice(0, directions as number);
         } else {
-            directions = directions as RotatingShape[];
-            this.initDirection = (initDirection + directions.length) % directions.length;
-            this.directions = directions
+            this.directions = directions as RotatingShape[];
         }
+        this.initDirection = (initDirection + this.directions.length) % this.directions.length;
     }
 
     private currentShape(): RotatingShape {
