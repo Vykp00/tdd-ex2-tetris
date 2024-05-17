@@ -40,6 +40,10 @@ export class Tetromino implements Shape {
             this.#directions = directions
         }
     }
+
+    private currentShape(): RotatingShape {
+        return this.#directions[this.#initDirection];
+    }
     #shape() {
         return this.#directions[this.#initDirection];
     }
@@ -50,16 +54,16 @@ export class Tetromino implements Shape {
         return new Tetromino(this.#initDirection -1, this.#directions);
     }
     width(): number{
-        return this.#shape().width();
+        return this.currentShape().width();
     }
     height(): number {
-        return this.#shape().height();
+        return this.currentShape().height();
     }
     blockSpot(row: number, col: number): string | undefined {
-        return this.#shape().blockSpot(row, col)
+        return this.currentShape().blockSpot(row, col)
     }
 
     toString() {
-        return this.#shape().toString();
+        return this.currentShape().toString();
     }
 }
