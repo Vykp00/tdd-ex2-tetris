@@ -1,19 +1,16 @@
 import {Shape, shapeToString} from "./shapeutils";
 
-function shapeArray(size: number): any[][] {
-    // Return string shape to array
-    const array = new Array(size);
-    for (let row = 0; row < size; row++) {
-        array[row] = new Array(size);
-    }
-    return array;
+const EMPTY = ".";
+
+function shapeArray(size: number): string[][] {
+    return Array.from({ length: size }, () => Array(size).fill(EMPTY));
 }
 function convertRotateRight(shape: string[][]) {
     const size = shape.length;
     const rotated = shapeArray(size);
     for (let row = 0; row < size; row++) {
-        for (let column = 0; column < size; column++) {
-            rotated[row][column] = shape[size - 1 - column][row];
+        for (let col = 0; col < size; col++) {
+            rotated[row][col] = shape[size - 1 - col][row];
         }
     }
     return new RotatingShape(rotated);
