@@ -16,8 +16,8 @@ export class Tetromino implements Shape {
         1,
         '.OO\n.OO\n...\n');
 
-    #initDirection: number;
-    #directions: RotatingShape[];
+    private readonly directions: RotatingShape[];
+    private readonly initDirection: number;
 
     constructor(
         initDirection: number,
@@ -26,9 +26,9 @@ export class Tetromino implements Shape {
     ) {
         if (typeof initialShape === 'string') {
             directions = directions as number;
-            this.#initDirection = initDirection;
+            this.initDirection = initDirection;
             const shape = new RotatingShape(initialShape);
-            this.#directions = [
+            this.directions = [
                 shape,
                 shape.rotateRight(),
                 shape.rotateRight().rotateRight(),
@@ -36,22 +36,20 @@ export class Tetromino implements Shape {
             ].slice(0, directions as number);
         } else {
             directions = directions as RotatingShape[];
-            this.#initDirection = (initDirection + directions.length) % directions.length;
-            this.#directions = directions
+            this.initDirection = (initDirection + directions.length) % directions.length;
+            this.directions = directions
         }
     }
 
     private currentShape(): RotatingShape {
-        return this.#directions[this.#initDirection];
+        return this.directions[this.initDirection];
     }
-    #shape() {
-        return this.#directions[this.#initDirection];
-    }
+
     rotateRight() {
-        return new Tetromino(this.#initDirection + 1, this.#directions);
+        return new Tetromino(this.initDirection + 1, this.directions);
     }
     rotateLeft() {
-        return new Tetromino(this.#initDirection -1, this.#directions);
+        return new Tetromino(this.initDirection -1, this.directions);
     }
     width(): number{
         return this.currentShape().width();
