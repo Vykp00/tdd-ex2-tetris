@@ -52,11 +52,10 @@ class MovableShape implements Shape {
   }
   // return shape position
   blockSpot(row: number, col: number): string | undefined {
-    if (row >= this.row && row < this.height() && col >= this.col && col < this.width()) {
-      return this.shape.blockSpot(row - this.row, col - this.col);
-    } else {
+      if (row >= this.row && row < this.row + this.shape.height() && col >= this.col && col < this.col + this.shape.width()) {
+          return this.shape.blockSpot(row - this.row, col - this.col);
+      }
       return EMPTY;
-    }
   }
   height(): number {
     return this.row + this.shape.height();
