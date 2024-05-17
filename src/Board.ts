@@ -58,10 +58,10 @@ class MovableShape implements Shape {
       return EMPTY;
   }
   height(): number {
-    return this.row + this.shape.height();
+    return this.shape.height();
   }
   width(): number {
-    return this.col + this.shape.width();
+    return this.shape.width();
   }
 }
 export class Board implements Shape {
