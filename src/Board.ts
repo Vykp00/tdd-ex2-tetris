@@ -21,35 +21,28 @@ class Block implements Shape {
 }
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
-  #shape: Shape ;
-  #row: number;
-  #col: number;
-  constructor(shape: Shape , row: number, col: number) {
-    this.#shape = shape;
-    this.#row = row;
-    this.#col = col;
-  }
+  constructor(private readonly shape: Shape , private readonly row: number, private readonly col: number) {}
 
   // Move Block Down
   blockDescent(): MovableShape {
-      return new MovableShape(this.#shape, this.#row + 1, this.#col)
+      return new MovableShape(this.shape, this.row + 1, this.col)
   }
 
   // Move Block to Left
   moveLeft(): MovableShape {
-    return new MovableShape(this.#shape, this.#row, this.#col -1);
+    return new MovableShape(this.shape, this.row, this.col -1);
   }
 
   // Move Block to Right
   moveRight(): MovableShape {
-    return new MovableShape(this.#shape, this.#row, this.#col +1);
+    return new MovableShape(this.shape, this.row, this.col +1);
   }
 
   // Tetris Block Position
   tetrisBlocks() {
       const points : any[] = [];
-      for (let row: number = this.#row; row < this.#row + this.#shape.height(); row++) {
-          for (let col: number = this.#col; col < this.#col + this.#shape.width(); col++) {
+      for (let row: number = this.row; row < this.row + this.shape.height(); row++) {
+          for (let col: number = this.col; col < this.col + this.shape.width(); col++) {
               const block : string | undefined = this.blockSpot(row, col);
               if (block !== EMPTY) {
                   points.push(new Point(row, col));
@@ -60,17 +53,17 @@ class MovableShape implements Shape {
   }
   // return shape position
   blockSpot(row: number, col: number): string | undefined {
-    if (row >= this.#row && row < this.height() && col >= this.#col && col < this.width()) {
-      return this.#shape.blockSpot(row - this.#row, col - this.#col);
+    if (row >= this.row && row < this.height() && col >= this.col && col < this.width()) {
+      return this.shape.blockSpot(row - this.row, col - this.col);
     } else {
       return EMPTY;
     }
   }
   height(): number {
-    return this.#row + this.#shape.height();
+    return this.row + this.shape.height();
   }
   width(): number {
-    return this.#col + this.#shape.width();
+    return this.col + this.shape.width();
   }
 }
 export class Board implements Shape {
