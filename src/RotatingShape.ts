@@ -16,7 +16,6 @@ function rotateRight(shape: string[][]) {
     return rotated;
 }
 export class RotatingShape implements Shape {
-    #shape2: string[][];
     private readonly shape: string[][];
 
     constructor(shape: string | string[][]) {
