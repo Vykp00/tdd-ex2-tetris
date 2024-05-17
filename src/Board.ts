@@ -6,9 +6,7 @@ class Point {
     constructor( public row: number, public col: number) {}
 }
 class Block implements Shape {
-    #block
-    constructor(block: string) {
-        this.#block = block
+    constructor( private readonly block: string) {
     }
 
     width(): number {
@@ -18,9 +16,7 @@ class Block implements Shape {
         return 1;
     }
     blockSpot(row: number, col: number): string | undefined {
-        if (row === 0 && col === 0) {
-            return this.#block;
-        }
+        return row === 0 & col === 0 ? this.block : EMPTY;
     }
 }
 // MovableShape render each block in Board class
