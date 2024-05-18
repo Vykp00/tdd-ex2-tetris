@@ -114,7 +114,15 @@ export class Board implements Shape {
   }
 
   moveRight(): void {
-    this.#falling = this.#falling!.moveRight()
+      if (!this.hasFalling()) {
+          return;
+      }
+      const goRight: MovableShape = this.#falling!.moveRight();
+      if (this.#hitWall(goRight) || this.#stopMoving(goRight)) {
+          return; // set StopMoving?
+      } else {
+          this.#falling = goRight;
+      }
   }
   // Player cannot move block to left or right when it hit the wall
   #hitWall(falling: MovableShape): boolean {

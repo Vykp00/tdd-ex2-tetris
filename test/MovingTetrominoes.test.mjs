@@ -89,8 +89,8 @@ describe("Tetromino cannot be moved beyond the board", () => {
 
       expect(board.toString()).to.equalShape(
           `......
-     ....00
-     ....00
+     ....OO
+     ....OO
      ......`
       );
   })
