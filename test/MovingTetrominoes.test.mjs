@@ -109,3 +109,27 @@ describe("Tetromino cannot be moved beyond the board", () => {
      ..OO..`);
   })
 });
+
+describe("When falling a Tetromino touch other blocks", () => {
+    let board = new Board(12, 4);
+    beforeEach(() => {
+        // Place the first Tetromino
+       board.drop(Tetromino.O_SHAPE);
+       moveBeyondBoard(board, "right");
+       moveBeyondBoard(board, "down");
+       board.drop(Tetromino.O_SHAPE);
+       moveBeyondBoard(board, "left");
+       moveBeyondBoard(board, "down");
+    });
+    test("it can't be moved left", () => {
+        board.drop(Tetromino.T_SHAPE);
+        board.tick()
+        moveBeyondBoard(board, "left");
+        expect(board.toString()).to.equalShape(
+            `............
+            ...T........
+            OOTTT.....OO
+            OO........OO`
+        );
+    });
+});
