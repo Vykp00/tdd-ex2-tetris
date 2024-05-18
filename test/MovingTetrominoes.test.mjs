@@ -9,6 +9,12 @@ function moveBeyondLeft(board) {
     board.moveLeft();
   }
 }
+
+function moveBeyondRight(board) {
+    for (let i = 0; i < 10; i++) {
+        board.moveRight();
+    }
+}
 describe("A Falling Tetromino", () => {
   let board;
   beforeEach( () => {
@@ -76,4 +82,16 @@ describe("Tetromino cannot be moved beyond the board", () => {
      ......`
     );
   });
+  test("cannot be moved Right anymore", () => {
+      board.drop(Tetromino.O_SHAPE);
+      board.tick();
+      moveBeyondRight(board);
+
+      expect(board.toString()).to.equalShape(
+          `......
+     ....00
+     ....00
+     ......`
+      );
+  })
 });
