@@ -4,15 +4,23 @@ import { Board } from "../src/Board";
 import { Tetromino } from "../src/Tetromino";
 
 // Level 5: Moving falling Tetrominoes
-function moveBeyondLeft(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveLeft();
-  }
-}
-
-function moveBeyondRight(board) {
-    for (let i = 0; i < 10; i++) {
-        board.moveRight();
+function moveBeyondBoard(board, direction) {
+    const overBoardRow = board.width() + 3 // Board's width + 3
+    const overBoardCol = board.height() + 3// Board's height + 3
+    if (direction === "down") {
+        for (let i = 0; i < overBoardCol; i++) {
+            board.tick();
+        }
+    }
+    else if (direction === "left") {
+        for (let i = 0; i < overBoardRow; i++) {
+            board.moveLeft();
+        }
+    }
+    else if (direction === "right") {
+        for (let i = 0; i < overBoardRow; i++) {
+            board.moveRight();
+        }
     }
 }
 describe("A Falling Tetromino", () => {
@@ -68,24 +76,22 @@ describe("A Falling Tetromino", () => {
 describe("Tetromino cannot be moved beyond the board", () => {
   let board;
   beforeEach( () => {
-    board = new Board(6, 4);
-  });
-  test("cannot be moved Left anymore", () => {
-    board.drop(Tetromino.O_SHAPE);
-    board.tick();
-    moveBeyondLeft(board);
-
-    expect(board.toString()).to.equalShape(
-     `......
-     OO....
-     OO....
-     ......`
-    );
-  });
-  test("cannot be moved Right anymore", () => {
+      board = new Board(6, 4);
       board.drop(Tetromino.O_SHAPE);
       board.tick();
-      moveBeyondRight(board);
+  });
+  test("cannot be moved Left anymore", () => {
+      moveBeyondBoard(board, "left");
+
+      expect(board.toString()).to.equalShape(
+          `......
+          OO....
+          OO....
+          ......`
+      );
+  });
+  test("cannot be moved Right anymore", () => {
+      moveBeyondBoard(board, "right");
 
       expect(board.toString()).to.equalShape(
           `......
@@ -93,5 +99,13 @@ describe("Tetromino cannot be moved beyond the board", () => {
      ....OO
      ......`
       );
+  });
+  test("cannot be move Down anymore", () => {
+      moveBeyondBoard(board, "down")
+      expect(board.toString()).to.equalShape(
+          `......
+     ......
+     ..OO..
+     ..OO..`);
   })
 });
