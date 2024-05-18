@@ -9,7 +9,7 @@ export class Tetromino implements Shape {
     static I_SHAPE = new Tetromino(
         0,
         2,
-        '.....\n.....\nIIII.\n.....\n.....\n');
+        '..I..\n..I..\n..I..\n..I..\n.....\n');
 
     static O_SHAPE = new Tetromino(
         0,
