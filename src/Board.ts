@@ -136,13 +136,8 @@ export class Board implements Shape {
   }
 
   // Block stop moving after hitting bottom
-  #stopMoving(falling: MovableShape) {
-      for (const block of falling.getBlocks()) {
-          if (this.#notMoving[block.row][block.col] !== EMPTY) {
-              return true;
-          }
-      }
-      return false;
+  #stopMoving(shape: MovableShape): boolean {
+      return shape.getBlocks().some(block => this.#notMoving[block.row][block.col] !=EMPTY);
   }
   #stopFalling() {
       for (let row = 0; row < this.height(); row++) {
