@@ -38,6 +38,22 @@ describe("A falling Tetromino can be rotated", () => {
          ..........`
       );
     });
+    test("can kick wall to rotate left", () => {
+      board.rotateTetro(1);
+      // Hit wall
+      moveBeyondBoard(board, 'right');
+      // Try to kick wall when rotate left
+      board.rotateTetro(1)
+
+      expect(board.toString()).to.equalShape(
+        `..........
+        ..........
+        .......TTT
+        ........T.
+        ..........
+        ..........`
+      )
+    });
 })
 
 describe("A falling tetromino cannot be rotated", () => {
@@ -52,7 +68,7 @@ describe("A falling tetromino cannot be rotated", () => {
     moveBeyondBoard(board, 'left')
     moveBeyondBoard(board, 'down')
   });
-  test(", When there's no room to rotated", () => {
+  test(", when there's no room to rotate", () => {
     board.drop(Tetromino.I_SHAPE)
     board.tick()
     board.tick()

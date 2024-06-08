@@ -132,7 +132,16 @@ export class Board implements Shape {
     }
     const rotate : MovableShape = this.#falling!.rotateTetro(direction)
     if (this.#hitWall(rotate) || this.#stopMoving(rotate)) {
-      return; // set StopMoving if hit wall or stop moving
+      const tryToGoLeft : MovableShape = this.#falling!.moveLeft();
+      if (tryToGoLeft) {
+        const tryToRotate = tryToGoLeft.rotateTetro(direction);
+        // Check if it hit other blocks
+        if (this.#stopMoving(tryToRotate)) {
+          return;
+        } else {
+          this.#falling = tryToRotate;
+        }
+      }
     } else {
       // Rotate to left or right base on direction
       this.#falling = rotate
