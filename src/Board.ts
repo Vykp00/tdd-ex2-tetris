@@ -169,7 +169,7 @@ export class Board implements Shape {
   // Tetrominoe will kick wall to rotate if possible
   #kickWall(falling: MovableShape, direction: number): MovableShape | undefined {
     const tryToGoLeft : MovableShape = falling.moveLeft().rotateTetro(direction);
-    const tryToGoRight : MovableShape = falling.moveLeft().rotateTetro(direction);
+    const tryToGoRight : MovableShape = falling.moveRight().rotateTetro(direction);
     // Return new position after successfully rotated
     if (!this.#stopMoving(tryToGoLeft)) {
       return tryToGoLeft
