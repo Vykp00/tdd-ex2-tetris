@@ -132,15 +132,13 @@ export class Board implements Shape {
     }
     const rotate : MovableShape = this.#falling!.rotateTetro(direction)
     if (this.#hitWall(rotate) || this.#stopMoving(rotate)) {
-      const tryToGoLeft : MovableShape = this.#falling!.moveLeft();
-      if (tryToGoLeft) {
-        const tryToRotate = tryToGoLeft.rotateTetro(direction);
-        // Check if it hit other blocks
-        if (this.#stopMoving(tryToRotate)) {
-          return;
-        } else {
-          this.#falling = tryToRotate;
-        }
+      const tryKickWall = this.#kickWall(this.#falling!, direction)
+      // If they cannot rotate left or right after kicking wall. Return undefined
+      if (typeof(tryKickWall) === "undefined") {
+        return;
+      }
+      else {
+        this.#falling = tryKickWall;
       }
     } else {
       // Rotate to left or right base on direction
@@ -166,6 +164,20 @@ export class Board implements Shape {
       }
     }
     return false;
+  }
+
+  // Tetrominoe will kick wall to rotate if possible
+  #kickWall(falling: MovableShape, direction: number): MovableShape | undefined {
+    const tryToGoLeft : MovableShape = falling.moveLeft().rotateTetro(direction);
+    const tryToGoRight : MovableShape = falling.moveLeft().rotateTetro(direction);
+    // Return new position after successfully rotated
+    if (!this.#stopMoving(tryToGoLeft)) {
+      return tryToGoLeft
+    } else if (!this.#stopMoving(tryToGoRight)) {
+      return tryToGoRight
+    } else {
+      return;
+    }
   }
   // Player can still move block until it become immobile
   #hitFloor(falling: MovableShape): boolean {
