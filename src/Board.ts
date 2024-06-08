@@ -1,4 +1,5 @@
 import { Shape, shapeToString } from "./shapeutils";
+import { Tetromino } from "./Tetromino";
 
 const EMPTY = ".";
 
@@ -16,12 +17,12 @@ class Block implements Shape {
         return 1;
     }
     blockSpot(row: number, col: number): string | undefined {
-        return row === 0 & col === 0 ? this.block : EMPTY;
+        return row === 0 && col === 0 ? this.block : EMPTY;
     }
 }
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
-  constructor(private readonly shape: Shape , private readonly row: number, private readonly col: number) {}
+  constructor(private readonly shape: Tetromino , private readonly row: number, private readonly col: number) {}
 
   // Move Block Down
   blockDescent(): MovableShape {
@@ -31,6 +32,10 @@ class MovableShape implements Shape {
   // Move Block to Left
   moveLeft(): MovableShape {
     return new MovableShape(this.shape, this.row, this.col -1);
+  }
+
+  rotateLeft(): MovableShape {
+    return new MovableShape(this.shape.rotateLeft(), this.row, this.col)
   }
 
   // Move Block to Right
@@ -113,6 +118,9 @@ export class Board implements Shape {
     }
   }
 
+  rotateLeft(): void {
+    this.#falling = this.#falling!.rotateLeft()
+  }
   moveRight(): void {
       if (!this.hasFalling()) {
           return;
