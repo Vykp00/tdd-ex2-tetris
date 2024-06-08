@@ -38,6 +38,10 @@ class MovableShape implements Shape {
     return new MovableShape(this.shape.rotateLeft(), this.row, this.col)
   }
 
+  rotateRight(): MovableShape {
+    return new MovableShape(this.shape.rotateRight(), this.row, this.col)
+  }
+
   // Move Block to Right
   moveRight(): MovableShape {
     return new MovableShape(this.shape, this.row, this.col +1);
@@ -120,6 +124,9 @@ export class Board implements Shape {
 
   rotateLeft(): void {
     this.#falling = this.#falling!.rotateLeft()
+  }
+  rotateRight(): void {
+    this.#falling = this.#falling!.rotateRight()
   }
   moveRight(): void {
       if (!this.hasFalling()) {
