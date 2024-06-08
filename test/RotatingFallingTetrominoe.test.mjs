@@ -16,7 +16,7 @@ describe("A falling Tetromino can be rotated", () => {
       board = null
     })
     test("rotated to the left", () => {
-        board.rotateLeft()
+        board.rotateTetro(1)
         expect(board.toString()).to.equalShape(
             `..........
        ....T.....
@@ -27,7 +27,7 @@ describe("A falling Tetromino can be rotated", () => {
         );
     });
     test("rotated to the right", () => {
-      board.rotateRight()
+      board.rotateTetro(3)
       expect(board.toString()).to.equalShape(
         `..........
          ....T.....
