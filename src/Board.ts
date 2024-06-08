@@ -41,6 +41,17 @@ class MovableShape implements Shape {
   rotateRight(): MovableShape {
     return new MovableShape(this.shape.rotateRight(), this.row, this.col)
   }
+  rotateTetro( direction:number ): MovableShape {
+    // Rotate Left = 1
+    if (direction == 1) {
+      return new MovableShape(this.shape.rotateLeft(), this.row, this.col)
+    }
+    // Rotate Right = 2
+    else if (direction == 2) {
+      return new MovableShape(this.shape.rotateRight(), this.row, this.col)
+    }
+    return new MovableShape(this.shape, this.row, this.col)
+  }
 
   // Move Block to Right
   moveRight(): MovableShape {
@@ -123,10 +134,10 @@ export class Board implements Shape {
   }
 
   rotateLeft(): void {
-    this.#falling = this.#falling!.rotateLeft()
+    this.#falling = this.#falling!.rotateTetro(1)
   }
   rotateRight(): void {
-    this.#falling = this.#falling!.rotateRight()
+    this.#falling = this.#falling!.rotateTetro(2)
   }
   moveRight(): void {
       if (!this.hasFalling()) {
