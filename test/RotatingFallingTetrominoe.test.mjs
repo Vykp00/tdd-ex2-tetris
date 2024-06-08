@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.ts";
 import {Board} from "../src/Board";
+import { moveBeyondBoard } from "./MovingTetrominoes.test.mjs";
 
 describe("A falling Tetromino can be rotated", () => {
     let board;
@@ -37,4 +38,34 @@ describe("A falling Tetromino can be rotated", () => {
          ..........`
       );
     });
+})
+
+describe("A falling tetromino cannot be rotated", () => {
+  let board;
+  beforeEach(() => {
+    // Place the current board
+    board = new Board(5, 7)
+    board.drop(Tetromino.I_SHAPE)
+    moveBeyondBoard(board, 'right')
+    moveBeyondBoard(board, 'down')
+    board.drop(Tetromino.I_SHAPE)
+    moveBeyondBoard(board, 'left')
+    moveBeyondBoard(board, 'down')
+  });
+  test(", When there's no room to rotated", () => {
+    board.drop(Tetromino.I_SHAPE)
+    board.tick()
+    board.tick()
+    moveBeyondBoard(board, 'right')
+    board.rotateTetro(3)
+
+    expect(board.toString()).to.equalShape(
+      `.....
+      .....
+      ...I.
+      I..II
+      I..II
+      I..II
+      I...I`)
+  });
 })

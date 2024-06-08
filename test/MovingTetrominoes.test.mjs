@@ -4,7 +4,7 @@ import {Board} from "../src/Board";
 import {Tetromino} from "../src/Tetromino";
 
 // Level 5: Moving falling Tetrominoes
-function moveBeyondBoard(board, direction) {
+export function moveBeyondBoard(board, direction) {
     const overBoardRow = board.width() + 3 // Board's width + 3
     const overBoardCol = board.height() + 3// Board's height + 3
     if (direction === "down") {
