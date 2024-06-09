@@ -43,7 +43,7 @@ describe("Falling tetrominoes", () => {
   });
 
   test("stop when they land on another block", () => {
-    board.drop(Tetromino2.T_SHAPE);
+    board.drop(Tetromino2.O_SHAPE);
     fallToBottom(board);
     board.drop(Tetromino2.I_SHAPE);
     fallToBottom(board);
@@ -53,8 +53,8 @@ describe("Falling tetrominoes", () => {
        ..........
        ..........
        ...IIII...
-       ...TTT....
-       ....T.....`
+       ....OO....
+       ....OO....`
     );
   });
 });

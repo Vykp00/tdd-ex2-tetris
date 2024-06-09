@@ -94,9 +94,9 @@ export class Tetromino2 {
       ],
     ];
     return new Tetromino2(0, 4, directions);
-  }
+  };
 
-  static get I_SHAPE() {
+  static get I_SHAPE() : Tetromino2 {
     const directions = [
       [
         ['.', '.', '.', '.'],
@@ -109,6 +109,18 @@ export class Tetromino2 {
         ['.', '.', 'I', '.'],
         ['.', '.', 'I', '.'],
         ['.', '.', 'I', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 4, directions);
+  };
+
+  static get O_SHAPE() : Tetromino2 {
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['.', 'O', 'O', '.'],
+        ['.', 'O', 'O', '.'],
+        ['.', '.', '.', '.'],
       ],
     ];
     return new Tetromino2(0, 4, directions);
