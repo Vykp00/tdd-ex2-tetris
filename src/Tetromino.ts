@@ -62,3 +62,65 @@ export class Tetromino implements Shape {
         return this.currentShape().toString();
     }
 }
+
+// Level 7 Refactor
+export class Tetromino2 {
+  static get T_SHAPE() : Tetromino2 {
+    // Change: Hard code all directions instead of using Rotating Shape and initialShape
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['T', 'T', 'T', '.'],
+        ['.', 'T', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', 'T', '.', '.'],
+        ['T', 'T', '.', '.'],
+        ['.', 'T', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', '.', '.', '.'],
+        ['.', 'T', '.', '.'],
+        ['T', 'T', 'T', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', 'T', '.', '.'],
+        ['.', 'T', 'T', '.'],
+        ['.', 'T', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 4, directions);
+  }
+  private readonly directions : string[][][];
+  private readonly initDirection: number;
+  private readonly dimension: number;
+
+  constructor(
+    initDirection: number,
+    dimension: number,
+    directions: string[][][],
+    ) {
+    this.directions = directions;
+    this.initDirection = (initDirection + directions.length) % directions.length;
+    this.dimension = dimension;
+  }
+  private currentShape(): string[][] {
+    return this.directions[this.initDirection];
+  }
+  width(): number {
+    return this.currentShape()[0].length
+  }
+  height(): number {
+    return this.currentShape().length
+  }
+  toString() : string {
+    return this.currentShape().map((row) => `${row.join('')}\n`).join('');
+  }
+  blockSpot(row: number, col: number): string | undefined {
+    return this.currentShape()[row][col];
+  }
+}
