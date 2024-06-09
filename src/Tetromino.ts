@@ -95,6 +95,24 @@ export class Tetromino2 {
     ];
     return new Tetromino2(0, 4, directions);
   }
+
+  static get I_SHAPE() {
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['I', 'I', 'I', 'I'],
+        ['.', '.', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', '.', 'I', '.'],
+        ['.', '.', 'I', '.'],
+        ['.', '.', 'I', '.'],
+        ['.', '.', 'I', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 4, directions);
+  }
   private readonly directions : string[][][];
   private readonly initDirection: number;
   private readonly dimension: number;
