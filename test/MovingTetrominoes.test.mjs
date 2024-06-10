@@ -1,7 +1,7 @@
 import {beforeEach, describe, test} from "vitest";
 import {expect} from "chai";
 import {Board} from "../src/Board";
-import {Tetromino} from "../src/Tetromino";
+import { Tetromino, Tetromino2 } from "../src/Tetromino";
 
 // Level 5: Moving falling Tetrominoes
 export function moveBeyondBoard(board, direction) {
@@ -29,17 +29,17 @@ describe("A Falling Tetromino", () => {
     });
 
     test("can be moved left", () => {
-        board.drop(Tetromino.T_SHAPE);
+        board.drop(Tetromino2.T_SHAPE);
         board.tick();
-        board.moveLeft();
+        board.moveLeft2();
 
         expect(board.toString()).to.equalShape(
-            `..........
-      ...T......
-      ..TTT.....
-      ..........
-      ..........
-      ..........`
+          `..........
+           ..TTT.....
+           ...T......
+           ..........
+           ..........
+           ..........`
         );
     });
     test("can be moved right", () => {
