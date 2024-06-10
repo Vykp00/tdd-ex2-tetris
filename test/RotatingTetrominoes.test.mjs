@@ -214,9 +214,9 @@ describe("The J shape", () => {
 
   test("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
-      `.J..
+      `.JJ.
        .J..
-       .JJ.
+       .J..
        ....`
     );
   });

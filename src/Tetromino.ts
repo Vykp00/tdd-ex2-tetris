@@ -123,7 +123,7 @@ export class Tetromino2 {
         ['.', '.', '.', '.'],
       ],
     ];
-    return new Tetromino2(0, 4, directions);
+    return new Tetromino2(0, 1, directions);
   };
 
   static get L_SHAPE() : Tetromino2 {
@@ -155,6 +155,36 @@ export class Tetromino2 {
     ]
     return new Tetromino2(0, 4, directions)
   };
+
+  static get J_SHAPE() : Tetromino2 {
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['J', 'J', 'J', '.'],
+        ['.', '.', 'J', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', 'J', '.', '.'],
+        ['.', 'J', '.', '.'],
+        ['J', 'J', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', '.', '.', '.'],
+        ['J', '.', '.', '.'],
+        ['J', 'J', 'J', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', 'J', 'J', '.'],
+        ['.', 'J', '.', '.'],
+        ['.', 'J', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 4, directions);
+  }
 
   private readonly directions : string[][][];
   private readonly initDirection: number;
