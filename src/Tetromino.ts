@@ -123,7 +123,9 @@ export class Tetromino2 {
         ['.', '.', '.', '.'],
       ],
     ];
-    return new Tetromino2(0, 1, directions);
+    // change 10/6/2024
+    // return new Tetromino2(0, 1, directions);
+    return new Tetromino2(0, 4, directions);
   };
 
   static get L_SHAPE() : Tetromino2 {
