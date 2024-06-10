@@ -186,7 +186,7 @@ describe("The L shape", () => {
     );
   });
 
-  test("has 1 distinct orientations", () => {
+  test("has 4 distinct orientations", () => {
     expect(distinctOrientations(shape).size).to.equal(4);
   });
 });
@@ -221,7 +221,42 @@ describe("The J shape", () => {
     );
   });
 
-  test("has 1 distinct orientations", () => {
+  test("has 4 distinct orientations", () => {
     expect(distinctOrientations(shape).size).to.equal(4);
+  });
+})
+
+describe("The S shape", () => {
+  const shape = Tetromino2.J_SHAPE;
+
+  test("initial orientation", () => {
+    expect(shape.toString()).to.equalShape(
+      `....
+       .SS.
+       SS..
+       ....`
+    );
+  });
+
+  test("can be rotated right/clockwise", () => {
+    expect(shape.rotateRight().toString()).to.equalShape(
+      `S...
+       SS..
+       .S..
+       ....`
+    );
+  });
+
+  test("can be rotated left/counter-clockwise", () => {
+    expect(shape.rotateLeft().toString()).to.equalShape(
+      `S...
+       SS..
+       .S..
+       ....`
+    );
+  });
+
+  test("has 2 distinct orientations", () => {
+    expect(distinctOrientations(shape).size).to.equal(2);
   });
 })
