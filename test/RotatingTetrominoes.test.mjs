@@ -227,7 +227,7 @@ describe("The J shape", () => {
 })
 
 describe("The S shape", () => {
-  const shape = Tetromino2.J_SHAPE;
+  const shape = Tetromino2.S_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(

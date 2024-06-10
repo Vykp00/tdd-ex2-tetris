@@ -184,6 +184,24 @@ export class Tetromino2 {
       ],
     ];
     return new Tetromino2(0, 4, directions);
+  };
+
+  static get S_SHAPE() : Tetromino2 {
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['.', 'S', 'S', '.'],
+        ['S', 'S', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['S', '.', '.', '.'],
+        ['S', 'S', '.', '.'],
+        ['.', 'S', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 2, directions);
   }
 
   private readonly directions : string[][][];
