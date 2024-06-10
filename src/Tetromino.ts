@@ -202,6 +202,24 @@ export class Tetromino2 {
       ],
     ];
     return new Tetromino2(0, 2, directions);
+  };
+
+  static get Z_SHAPE() : Tetromino2 {
+    const directions = [
+      [
+        ['.', '.', '.', '.'],
+        ['Z', 'Z', '.', '.'],
+        ['.', 'Z', 'Z', '.'],
+        ['.', '.', '.', '.'],
+      ],
+      [
+        ['.', '.', 'Z', '.'],
+        ['.', 'Z', 'Z', '.'],
+        ['.', 'Z', '.', '.'],
+        ['.', '.', '.', '.'],
+      ],
+    ];
+    return new Tetromino2(0, 2, directions);
   }
 
   private readonly directions : string[][][];
