@@ -124,7 +124,7 @@ export class Tetromino2 {
       ],
     ];
     return new Tetromino2(0, 4, directions);
-  }
+  };
 
   static get L_SHAPE() : Tetromino2 {
     const directions = [
@@ -154,7 +154,8 @@ export class Tetromino2 {
       ],
     ]
     return new Tetromino2(0, 4, directions)
-  }
+  };
+
   private readonly directions : string[][][];
   private readonly initDirection: number;
   private readonly dimension: number;
@@ -170,6 +171,12 @@ export class Tetromino2 {
   }
   private currentShape(): string[][] {
     return this.directions[this.initDirection];
+  }
+  rotateRight() {
+    return new Tetromino2(this.initDirection + 1, this.dimension, this.directions);
+  }
+  rotateLeft() {
+    return new Tetromino2(this.initDirection - 1, this.dimension, this.directions);
   }
   width(): number {
     return this.currentShape()[0].length
