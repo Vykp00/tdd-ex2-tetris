@@ -226,7 +226,7 @@ export class Tetromino2 {
 
   private readonly directions : string[][][];
   private readonly initDirection: number;
-  private readonly dimension: number;
+  public dimension: number;
 
   constructor(
     initDirection: number,

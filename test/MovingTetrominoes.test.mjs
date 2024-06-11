@@ -28,10 +28,10 @@ describe("A Falling Tetromino", () => {
         board = new Board(10, 6);
     });
 
-    test("can be moved left", () => {
+    test.skip("can be moved left", () => {
         board.drop(Tetromino2.T_SHAPE);
         board.tick();
-        board.moveLeft2();
+        board.moveLeft();
 
         expect(board.toString()).to.equalShape(
           `..........

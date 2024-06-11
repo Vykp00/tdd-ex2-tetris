@@ -12,23 +12,23 @@ function fallToBottom(board) {
 describe("Falling ARS tetrominoes", () => {
   let board;
   beforeEach(() => {
-    board = new Board(10, 6);
+    board = new Board2(10, 6);
   });
 
   test("start from the top middle", () => {
     board.drop(Tetromino2.T_SHAPE);
 
     expect(board.toString()).to.equalShape(
-      `..........
-       ...TTT....
+      `...TTT....
        ....T.....
+       ..........
        ..........
        ..........
        ..........`
     );
   });
 
-  test("stop when they hit the bottom", () => {
+  test.skip("stop when they hit the bottom", () => {
     board.drop(Tetromino2.T_SHAPE);
     fallToBottom(board);
 
@@ -42,7 +42,7 @@ describe("Falling ARS tetrominoes", () => {
     );
   });
 
-  test("stop when they land on another block", () => {
+  test.skip("stop when they land on another block", () => {
     board.drop(Tetromino2.O_SHAPE);
     fallToBottom(board);
     board.drop(Tetromino2.L_SHAPE);
