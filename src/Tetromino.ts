@@ -237,7 +237,7 @@ export class Tetromino2 {
     this.initDirection = (initDirection + directions.length) % directions.length;
     this.dimension = dimension;
   }
-  private currentShape(): string[][] {
+  currentShape(): string[][] {
     return this.directions[this.initDirection];
   }
   rotateRight() {

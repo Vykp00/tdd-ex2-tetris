@@ -1,6 +1,6 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Board } from "../src/Board";
+import { Board, Board2 } from "../src/Board";
 import { Tetromino, Tetromino2 } from "../src/Tetromino";
 
 function fallToBottom(board) {

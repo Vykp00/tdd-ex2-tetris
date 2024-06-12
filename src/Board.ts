@@ -1,7 +1,7 @@
 import { Shape, shapeToString } from "./shapeutils";
-import { Tetromino } from "./Tetromino";
+import { Tetromino, Tetromino2 } from "./Tetromino";
 
-const EMPTY = ".";
+const EMPTY = '.';
 
 class Point {
     constructor( public row: number, public col: number) {}
@@ -19,6 +19,27 @@ class Block implements Shape {
     blockSpot(row: number, col: number): string | undefined {
         return row === 0 && col === 0 ? this.block : EMPTY;
     }
+}
+
+export class Block2 {
+  block: string;
+  dimension = 1;
+
+  constructor(block : string) {
+    this.block = block;
+  }
+
+  blockSpot(gridRow: number, gridCol: number) : string | undefined{
+    return this.block;
+  }
+
+  rotateRight() {
+    return this;
+  }
+
+  rotateLeft() {
+    return this;
+  }
 }
 // MovableShape render each block in Board class
 class MovableShape implements Shape {
@@ -77,6 +98,143 @@ class MovableShape implements Shape {
     return this.shape.width();
   }
 }
+
+class MovableShape2 {
+  shape: Tetromino2;
+  shapePosition;
+  constructor(shape: Tetromino2 ,
+              row: number,
+              col: number) {
+    this.shape = shape;
+    this.shapePosition = { row: row, col: col }; // Initial position
+  }
+  get row() {
+    return this.shapePosition.row;
+  }
+
+  get col() {
+    return this.shapePosition.col;
+  }
+  height(): number {
+    return this.shape.height();
+  }
+  width(): number {
+    return this.shape.width();
+  }
+  get dimension(): number {
+    return this.shape.dimension;
+  }
+
+  // Tetris Block Position to Drop to board
+  getBlocks(): Point[] {
+    const blocks: Point[] = [];
+    for (let row = 0; row < this.shape.height(); row++) {
+      for (let col = 0; col < this.shape.width(); col++) {
+        if (this.shape.blockSpot(row, col) !== EMPTY) {
+          blocks.push(new Point(this.row + row, this.col + col)); // Remove first empty row
+        }
+      }
+    }
+    console.log("getBlock()")
+    console.table(blocks)
+    return blocks;
+  }
+
+  // return shape position
+  blockSpot(gridRow: number, gridCol: number): string | undefined {
+    if (
+      gridRow >= this.row &&
+      gridRow < this.row + this.dimension &&
+      gridCol >= this.col &&
+      gridCol < this.col + this.dimension
+    ) {
+      const shapeSpot= this.shape.blockSpot(gridRow - this.row, gridCol - this.col);
+      return shapeSpot;
+    }
+    return EMPTY;
+  }
+
+  // Move Block Down
+  blockDescent() : void {
+    this.shapePosition.row += 1;
+  }
+
+  // Move up when kick floor
+  moveUp(){
+    this.shapePosition.row -=1;
+  }
+}
+
+function createBlankGrid(width : number, height : number) : string [][] {
+  const result = [];
+
+  for (let i = 0; i < height; i++) {
+    const row = Array(width).fill(EMPTY);
+    result.push(row);
+  }
+
+  return result;
+}
+
+export class Board2 implements Shape{
+  #grid : string[][];
+  #falling: MovableShape2 | null = null;
+  #justFalling : boolean = false; // Verify this Tetromino has just fallen so it should start from the top
+
+  constructor(width : number, height : number) {
+    this.#grid = createBlankGrid(width, height);
+    this.#justFalling = false;
+  }
+
+  width() : number {
+    return this.#grid[0].length;
+  }
+
+  height() : number  {
+    return this.#grid.length;
+  }
+
+  hasFalling() {
+    return this.#falling !== null;
+  }
+
+  toString(): string {
+    return shapeToString(this);
+  }
+
+  drop(newBlock: Tetromino2 | string): void {
+    if (this.hasFalling()) {
+      throw new Error('already falling')
+    }
+    if (typeof newBlock === 'string') {
+      newBlock = new Block2(newBlock)
+    }
+    if (newBlock instanceof Tetromino2) {
+      this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2));
+      this.#justFalling = true; // Verify this is a new block
+      const shape = newBlock.currentShape()
+      console.table(shape);
+      console.log(shape[0]) // first row of the Tetromino
+    }
+  }
+
+  // Return Grid with Block position with 'blockSpot'
+  blockSpot(row: number, col: number): string | undefined {
+    if (this.#falling && !this.#justFalling) {
+      const block = this.#falling.blockSpot(row, col)
+      if (block !== EMPTY) {
+        return block
+      }
+    } if (this.#falling && this.#justFalling) { // Newly droped Tetromino will start from the top
+      const block = this.#falling.blockSpot(row+1, col)
+      if (block !== EMPTY) {
+        return block
+      }
+    }
+    return this.#grid[row][col];
+  }
+}
+
 export class Board implements Shape {
   // '#' set hard private
   #width: number;
