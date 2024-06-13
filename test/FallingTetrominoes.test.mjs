@@ -42,7 +42,7 @@ describe("Falling ARS tetrominoes", () => {
     );
   });
 
-  test.skip("stop when they land on another block", () => {
+  test("stop when they land on another block", () => {
     board.drop(Tetromino2.O_SHAPE);
     fallToBottom(board);
     board.drop(Tetromino2.L_SHAPE);
