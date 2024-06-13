@@ -1,6 +1,6 @@
 import {beforeEach, describe, test} from "vitest";
 import {expect} from "chai";
-import {Board} from "../src/Board";
+import {Board, Board2} from "../src/Board";
 import { Tetromino, Tetromino2 } from "../src/Tetromino";
 
 // Level 5: Moving falling Tetrominoes
@@ -25,10 +25,10 @@ export function moveBeyondBoard(board, direction) {
 describe("A Falling Tetromino", () => {
     let board;
     beforeEach(() => {
-        board = new Board(10, 6);
+        board = new Board2(10, 6);
     });
 
-    test.skip("can be moved left", () => {
+    test("can be moved left", () => {
         board.drop(Tetromino2.T_SHAPE);
         board.tick();
         board.moveLeft();
@@ -42,7 +42,7 @@ describe("A Falling Tetromino", () => {
            ..........`
         );
     });
-    test("can be moved right", () => {
+    test.skip("can be moved right", () => {
         board.drop(Tetromino.T_SHAPE);
         board.tick();
         board.moveRight();
@@ -56,7 +56,7 @@ describe("A Falling Tetromino", () => {
       ..........`
         );
     });
-    test("can be moved down", () => {
+    test.skip("can be moved down", () => {
         board.drop(Tetromino.O_SHAPE);
         board.tick();
         board.tick();

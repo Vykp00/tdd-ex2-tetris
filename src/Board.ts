@@ -163,6 +163,16 @@ class MovableShape2 {
   moveUp(){
     this.shapePosition.row -=1;
   }
+
+  // Move Tetromino to left
+  moveLeft() {
+    this.shapePosition.col -= 1;
+  }
+
+  // Move Tetromioe to Right
+  moveRight() {
+    this.shapePosition.col += 1;
+  }
 }
 
 function createBlankGrid(width : number, height : number) : string [][] {
@@ -194,8 +204,7 @@ export class Board2 implements Shape{
     return this.#grid.length;
   }
 
-  hasFalling() {
-    this.#justFalling = false;
+  hasFalling(): boolean {
     return this.#falling !== null;
   }
 
@@ -216,6 +225,7 @@ export class Board2 implements Shape{
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2));
       this.#justFalling = true; // Verify this is a new block
       const shape = newBlock.currentShape()
+      console.log("From Block Spot")
       console.table(shape);
       console.log(shape[0]) // first row of the Tetromino
     }
@@ -236,7 +246,7 @@ export class Board2 implements Shape{
     }
     return this.#grid[row][col];
   }
-  tick() {
+  tick() : void {
     if (!this.hasFalling()) {
       return;
     }
@@ -244,10 +254,20 @@ export class Board2 implements Shape{
       this.#kickFloor()
       this.#stopFalling();
     })
-    this.#justFalling = false; // Now Tetromino start moving,
   }
 
-  // Attempt methods
+  // Tetrominoes can move left. If hit wall it move right
+  moveLeft() : void {
+    if (!this.hasFalling()) {
+      return; // Only falling block can be moved
+    }
+    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), () => {
+      console.log('Moving Left failed')
+      return;
+    })
+  }
+
+  // Attempt method. If the move is invalid or fail. Use roll back move
   #successOrRollBack(actionFunction : any, rollbackFunction: any) : false | true {
     actionFunction();
     if (this.#invalidMove()) {
@@ -267,12 +287,12 @@ export class Board2 implements Shape{
     }
     return false
   }
-  // Tetromino cannot move out of bound
+  // Tetromino cannot move out the wall
   #hitWall(row: number, col: number) : boolean {
     return this.#falling!.blockSpot(row, col) !== EMPTY && col >= this.width();
   }
 
-  // Tetromino cannot move out of bound
+  // Tetromino cannot move out of the floor
   #hitFloor(row: number, col: number) : boolean {
     return this.#falling!.blockSpot(row, col) !== EMPTY && row >= this.height();
   }
@@ -289,6 +309,7 @@ export class Board2 implements Shape{
     this.#falling!.moveUp();
   }
   #stopFalling(): void {
+    this.#justFalling = false; // Tetromino to normal shape as it's not newly dropped anymore
     for (let row = 0; row < this.height(); row++) {
       for (let col = 0; col < this.width(); col++) {
         this.#grid[row][col] = this.blockSpot(row, col) as string;
