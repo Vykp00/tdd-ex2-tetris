@@ -56,8 +56,8 @@ describe("A Falling Tetromino", () => {
       ..........`
         );
     });
-    test.skip("can be moved down", () => {
-        board.drop(Tetromino.O_SHAPE);
+    test("can be moved down", () => {
+        board.drop(Tetromino2.O_SHAPE);
         board.tick();
         board.tick();
 
