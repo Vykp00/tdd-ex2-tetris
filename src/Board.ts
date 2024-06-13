@@ -208,6 +208,8 @@ export class Board2 implements Shape{
     }
     if (typeof newBlock === 'string') {
       newBlock = new Block2(newBlock)
+      this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2)); // dimension = 1
+      console.log(newBlock)
     }
     if (newBlock instanceof Tetromino2) {
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2));
