@@ -227,7 +227,7 @@ export class Board2 implements Shape{
       const shape = newBlock.currentShape()
       console.log("From Block Spot")
       console.table(shape);
-      console.log(shape[0]) // first row of the Tetromino
+      //console.log(shape[0]) // first row of the Tetromino
     }
   }
 
@@ -263,6 +263,17 @@ export class Board2 implements Shape{
     }
     this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), () => {
       console.log('Moving Left failed')
+      return;
+    })
+  }
+
+  // Tetrominoes can move right. If hit wall it move left
+  moveRight() : void {
+    if (!this.hasFalling()) {
+      return; // Only falling block can be moved
+    }
+    this.#successOrRollBack(this.#falling!.moveRight.bind(this.#falling), () => {
+      console.log('Moving Right failed')
       return;
     })
   }
