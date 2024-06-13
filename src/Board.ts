@@ -195,6 +195,7 @@ export class Board2 implements Shape{
   }
 
   hasFalling() {
+    this.#justFalling = false;
     return this.#falling !== null;
   }
 
@@ -243,6 +244,7 @@ export class Board2 implements Shape{
       this.#kickFloor()
       this.#stopFalling();
     })
+    this.#justFalling = false; // Now Tetromino start moving,
   }
 
   // Attempt methods

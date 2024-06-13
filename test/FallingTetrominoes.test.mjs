@@ -28,7 +28,7 @@ describe("Falling ARS tetrominoes", () => {
     );
   });
 
-  test.skip("stop when they hit the bottom", () => {
+  test("T Shape stop when they hit the bottom", () => {
     board.drop(Tetromino2.T_SHAPE);
     fallToBottom(board);
 
