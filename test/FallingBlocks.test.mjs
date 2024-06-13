@@ -48,7 +48,7 @@ describe("Falling blocks", () => {
   });
 
 
-  describe.skip("When a block reaches the bottom", () => {
+  describe("When a block reaches the bottom", () => {
     beforeEach(() => {
       board.drop("X");
       board.tick();

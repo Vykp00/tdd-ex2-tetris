@@ -240,6 +240,7 @@ export class Board2 implements Shape{
       return;
     }
     this.#successOrRollBack(this.#falling!.blockDescent.bind(this.#falling), () => {
+      this.#kickFloor()
       this.#stopFalling();
     })
   }
@@ -248,7 +249,8 @@ export class Board2 implements Shape{
   #successOrRollBack(actionFunction : any, rollbackFunction: any) : false | true {
     actionFunction();
     if (this.#invalidMove()) {
-      rollbackFunction;
+      console.log("invalid move")
+      rollbackFunction();
       return false;
     }
     return true;
@@ -256,7 +258,7 @@ export class Board2 implements Shape{
   #invalidMove(): true | false {
     for (let row = this.#falling!.row; row < this.#falling!.row + this.#falling!.dimension; row++) {
       for (let col = 0; col < this.#falling!.col + this.#falling!.dimension; col++) {
-        if (this.#hitWall(row, col) || this.#hitBlock(row, col)) {
+        if (this.#hitWall(row, col) || this.#hitFloor(row, col) || this.#hitBlock(row, col)) {
           return true;
         }
       }
@@ -265,6 +267,11 @@ export class Board2 implements Shape{
   }
   // Tetromino cannot move out of bound
   #hitWall(row: number, col: number) : boolean {
+    return this.#falling!.blockSpot(row, col) !== EMPTY && col >= this.width();
+  }
+
+  // Tetromino cannot move out of bound
+  #hitFloor(row: number, col: number) : boolean {
     return this.#falling!.blockSpot(row, col) !== EMPTY && row >= this.height();
   }
 
@@ -274,15 +281,19 @@ export class Board2 implements Shape{
   }
 
   // Block stop moving after hitting bottom
-  #stopMoving(shape: MovableShape2): boolean {
-    return shape.getBlocks().some(block => this.#grid[block.row][block.col] !=EMPTY);
+  // Tetromino Move up
+  #kickFloor() {
+    console.log("Move Up Work");
+    this.#falling!.moveUp();
   }
-  #stopFalling() {
+  #stopFalling(): void {
     for (let row = 0; row < this.height(); row++) {
       for (let col = 0; col < this.width(); col++) {
         this.#grid[row][col] = this.blockSpot(row, col) as string;
       }
     }
+    console.log("stopFalling activated")
+    console.table(this.#grid)
     this.#falling = null;
   }
 }
