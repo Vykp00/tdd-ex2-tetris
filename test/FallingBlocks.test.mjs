@@ -77,7 +77,7 @@ describe("Falling blocks", () => {
   });
 
 
-  describe.skip("When a block lands on another block", () => {
+  describe("When a block lands on another block", () => {
     beforeEach(() => {
       board.drop("X");
       board.tick();
