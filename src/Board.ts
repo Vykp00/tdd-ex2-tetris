@@ -235,6 +235,56 @@ export class Board2 implements Shape{
     }
     return this.#grid[row][col];
   }
+  tick() {
+    if (!this.hasFalling()) {
+      return;
+    }
+    this.#successOrRollBack(this.#falling!.blockDescent.bind(this.#falling), () => {
+      this.#stopFalling();
+    })
+  }
+
+  // Attempt methods
+  #successOrRollBack(actionFunction : any, rollbackFunction: any) : false | true {
+    actionFunction();
+    if (this.#invalidMove()) {
+      rollbackFunction;
+      return false;
+    }
+    return true;
+  }
+  #invalidMove(): true | false {
+    for (let row = this.#falling!.row; row < this.#falling!.row + this.#falling!.dimension; row++) {
+      for (let col = 0; col < this.#falling!.col + this.#falling!.dimension; col++) {
+        if (this.#hitWall(row, col) || this.#hitBlock(row, col)) {
+          return true;
+        }
+      }
+    }
+    return false
+  }
+  // Tetromino cannot move out of bound
+  #hitWall(row: number, col: number) : boolean {
+    return this.#falling!.blockSpot(row, col) !== EMPTY && row >= this.height();
+  }
+
+  // Tetromino hit other block or hit bottom
+  #hitBlock(row: number, col: number) : boolean {
+    return this.#falling!.blockSpot(row, col) !== EMPTY && this.#grid[row][col] !== EMPTY;
+  }
+
+  // Block stop moving after hitting bottom
+  #stopMoving(shape: MovableShape2): boolean {
+    return shape.getBlocks().some(block => this.#grid[block.row][block.col] !=EMPTY);
+  }
+  #stopFalling() {
+    for (let row = 0; row < this.height(); row++) {
+      for (let col = 0; col < this.width(); col++) {
+        this.#grid[row][col] = this.blockSpot(row, col) as string;
+      }
+    }
+    this.#falling = null;
+  }
 }
 
 export class Board implements Shape {
