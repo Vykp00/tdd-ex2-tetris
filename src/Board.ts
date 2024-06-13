@@ -261,10 +261,7 @@ export class Board2 implements Shape{
     if (!this.hasFalling()) {
       return; // Only falling block can be moved
     }
-    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), () => {
-      console.log('Moving Left failed')
-      return;
-    })
+    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), this.moveRight.bind(this))
   }
 
   // Tetrominoes can move right. If hit wall it move left
@@ -282,16 +279,28 @@ export class Board2 implements Shape{
   #successOrRollBack(actionFunction : any, rollbackFunction: any) : false | true {
     actionFunction();
     if (this.#invalidMove()) {
-      console.log("invalid move")
+      console.log("Invalid move: -----")
       rollbackFunction();
       return false;
+    }
+    else {
+      console.log("Success move: +++++")
     }
     return true;
   }
   #invalidMove(): true | false {
     for (let row = this.#falling!.row; row < this.#falling!.row + this.#falling!.dimension; row++) {
-      for (let col = 0; col < this.#falling!.col + this.#falling!.dimension; col++) {
+      for (let col = this.#falling!.col; col < this.#falling!.col + this.#falling!.dimension; col++) {
         if (this.#hitWall(row, col) || this.#hitFloor(row, col) || this.#hitBlock(row, col)) {
+          if(this.#hitWall(row, col)) {
+            console.log("Tetro Hit Wall")
+          }
+          else if(this.#hitFloor(row, col)) {
+            console.log("Tetro Hit Floor")
+          }
+          else if (this.#hitBlock(row, col)) {
+            console.log("Tetro Hit Block")
+          }
           return true;
         }
       }

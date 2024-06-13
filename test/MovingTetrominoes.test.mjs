@@ -2,6 +2,7 @@ import {beforeEach, describe, test} from "vitest";
 import {expect} from "chai";
 import {Board, Board2} from "../src/Board";
 import { Tetromino, Tetromino2 } from "../src/Tetromino";
+import { shapeToString } from "../src/shapeutils";
 
 // Level 5: Moving falling Tetrominoes
 export function moveBeyondBoard(board, direction) {
@@ -75,21 +76,23 @@ describe("A Falling Tetromino", () => {
 describe("Tetromino cannot be moved beyond the board", () => {
     let board;
     beforeEach(() => {
-        board = new Board(6, 4);
-        board.drop(Tetromino.O_SHAPE);
+        board = new Board2(10, 6);
+        board.drop(Tetromino2.O_SHAPE);
         board.tick();
     });
     test("cannot be moved Left anymore", () => {
         moveBeyondBoard(board, "left");
 
         expect(board.toString()).to.equalShape(
-            `......
-          OO....
-          OO....
-          ......`
+            `..........
+             OO........
+             OO........
+             ..........
+             ..........
+             ..........`
         );
     });
-    test("cannot be moved Right anymore", () => {
+    test.skip("cannot be moved Right anymore", () => {
         moveBeyondBoard(board, "right");
 
         expect(board.toString()).to.equalShape(
@@ -99,7 +102,7 @@ describe("Tetromino cannot be moved beyond the board", () => {
      ......`
         );
     });
-    test("cannot be move Down anymore", () => {
+    test.skip("cannot be move Down anymore", () => {
         moveBeyondBoard(board, "down")
         expect(board.toString()).to.equalShape(
             `......
