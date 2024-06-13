@@ -92,14 +92,16 @@ describe("Tetromino cannot be moved beyond the board", () => {
              ..........`
         );
     });
-    test.skip("cannot be moved Right anymore", () => {
+    test("cannot be moved Right anymore", () => {
         moveBeyondBoard(board, "right");
 
         expect(board.toString()).to.equalShape(
-            `......
-     ....OO
-     ....OO
-     ......`
+            `..........
+             ........OO
+             ........OO
+             ..........
+             ..........
+             ..........`
         );
     });
     test.skip("cannot be move Down anymore", () => {

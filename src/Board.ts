@@ -261,7 +261,7 @@ export class Board2 implements Shape{
     if (!this.hasFalling()) {
       return; // Only falling block can be moved
     }
-    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), this.moveRight.bind(this))
+    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), this.moveRight.bind(this));
   }
 
   // Tetrominoes can move right. If hit wall it move left
@@ -269,10 +269,7 @@ export class Board2 implements Shape{
     if (!this.hasFalling()) {
       return; // Only falling block can be moved
     }
-    this.#successOrRollBack(this.#falling!.moveRight.bind(this.#falling), () => {
-      console.log('Moving Right failed')
-      return;
-    })
+    this.#successOrRollBack(this.#falling!.moveRight.bind(this.#falling), this.moveLeft.bind(this));
   }
 
   // Attempt method. If the move is invalid or fail. Use roll back move
