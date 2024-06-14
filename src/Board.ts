@@ -252,6 +252,10 @@ export class Board2 implements Shape{
     if (!this.hasFalling()) {
       return;
     }
+    if (this.#justFalling) {
+      this.#justFalling = false; // Reset to normal once Tetro move down
+      return;
+    }
     this.#successOrRollBack(this.#falling!.blockDescent.bind(this.#falling), () => {
       this.#kickFloor()
       this.#stopFalling();
@@ -299,14 +303,8 @@ export class Board2 implements Shape{
 
   // Tetromino hit other block or hit bottom
   #hitBlock(row: number, col: number) : boolean {
-    if (this.#falling!.shapeType === 'T') {
-      return this.#falling!.blockSpot(row+1, col) !== EMPTY && this.getBlock(row, col) !== EMPTY;
-    }
-    else {
-      //console.log(`this Block: ${this.#falling!.blockSpot(row, col)} at row: ${row} and col ${col}`);
-      return this.#falling!.blockSpot(row, col) !== EMPTY && this.getBlock(row, col) !== EMPTY;
-    }
-    //return this.#falling!.getBlocks().some(block => this.getBlock(block.row ,block.col) !=EMPTY);
+    //console.log(`this Block: ${this.#falling!.blockSpot(row, col)} at row: ${row} and col ${col}`);
+    return this.#falling!.blockSpot(row, col) !== EMPTY && this.getBlock(row, col) !== EMPTY;
   }
 
   getBlock(row: number, col: number): string {
