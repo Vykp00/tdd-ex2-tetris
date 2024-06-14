@@ -64,7 +64,7 @@ export class Tetromino implements Shape {
 }
 
 // Level 7 Refactor
-export class Tetromino2 {
+export class Tetromino2 implements Shape {
   static get T_SHAPE() : Tetromino2 {
     // Change: Hard code all directions instead of using Rotating Shape and initialShape
     const directions = [
@@ -89,7 +89,7 @@ export class Tetromino2 {
         ['.', 'T', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions);
+    return new Tetromino2(0, 3, directions, 'T');
   };
 
   static get I_SHAPE() : Tetromino2 {
@@ -107,7 +107,7 @@ export class Tetromino2 {
         ['.', '.', 'I', '.'],
       ],
     ];
-    return new Tetromino2(0, 4, directions);
+    return new Tetromino2(0, 4, directions, 'I');
   };
 
   static get O_SHAPE() : Tetromino2 {
@@ -118,7 +118,7 @@ export class Tetromino2 {
         ['.', 'O', 'O', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions);
+    return new Tetromino2(0, 3, directions, 'O');
   };
 
   static get L_SHAPE() : Tetromino2 {
@@ -144,7 +144,7 @@ export class Tetromino2 {
         ['.', 'L', 'L'],
       ],
     ]
-    return new Tetromino2(0, 3, directions)
+    return new Tetromino2(0, 3, directions, 'L')
   };
 
   static get J_SHAPE() : Tetromino2 {
@@ -170,7 +170,7 @@ export class Tetromino2 {
         ['.', 'J', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions);
+    return new Tetromino2(0, 3, directions, 'J');
   };
 
   static get S_SHAPE() : Tetromino2 {
@@ -186,7 +186,7 @@ export class Tetromino2 {
         ['.', 'S', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions);
+    return new Tetromino2(0, 3, directions, 'S');
   };
 
   static get Z_SHAPE() : Tetromino2 {
@@ -202,30 +202,33 @@ export class Tetromino2 {
         ['.', 'Z', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions);
+    return new Tetromino2(0, 3, directions, 'Z');
   }
 
   private readonly directions : string[][][];
   private readonly initDirection: number;
+  public shapeType: string;
   public dimension: number;
 
   constructor(
     initDirection: number,
     dimension: number,
     directions: string[][][],
+    shapeType: string
     ) {
     this.directions = directions;
     this.initDirection = (initDirection + directions.length) % directions.length;
     this.dimension = dimension;
+    this.shapeType = shapeType;
   }
   currentShape(): string[][] {
     return this.directions[this.initDirection];
   }
   rotateRight() {
-    return new Tetromino2(this.initDirection + 1, this.dimension, this.directions);
+    return new Tetromino2(this.initDirection + 1, this.dimension, this.directions, this.shapeType);
   }
   rotateLeft() {
-    return new Tetromino2(this.initDirection - 1, this.dimension, this.directions);
+    return new Tetromino2(this.initDirection - 1, this.dimension, this.directions, this.shapeType);
   }
   width(): number {
     return this.currentShape()[0].length

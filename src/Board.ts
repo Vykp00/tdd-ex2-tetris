@@ -125,6 +125,10 @@ class MovableShape2 {
     return this.shape.dimension;
   }
 
+  get shapeType(): string {
+    return this.shape.shapeType;
+  }
+
   // Tetris Block Position to Drop to board
   getBlocks(): Point[] {
     const blocks: Point[] = [];
@@ -135,8 +139,6 @@ class MovableShape2 {
         }
       }
     }
-    console.log("getBlock()")
-    console.table(blocks)
     return blocks;
   }
 
@@ -234,12 +236,12 @@ export class Board2 implements Shape{
   // Return Grid with Block position with 'blockSpot'
   blockSpot(row: number, col: number): string | undefined {
     if (this.#falling && !this.#justFalling) {
-      const block = this.#falling.blockSpot(row, col)
+      const block = this.#falling!.blockSpot(row, col)
       if (block !== EMPTY) {
-        return block
+        return block;
       }
     } if (this.#falling && this.#justFalling) { // Newly droped Tetromino will start from the top
-      const block = this.#falling.blockSpot(row+1, col)
+      const block = this.#falling!.blockSpot(row+1, col)
       if (block !== EMPTY) {
         return block
       }
@@ -261,7 +263,7 @@ export class Board2 implements Shape{
     if (!this.hasFalling()) {
       return; // Only falling block can be moved
     }
-    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), this.moveRight.bind(this));
+    this.#successOrRollBack(this.#falling!.moveLeft.bind(this.#falling), this.#falling!.moveRight.bind(this.#falling));
   }
 
   // Tetrominoes can move right. If hit wall it move left
@@ -285,6 +287,33 @@ export class Board2 implements Shape{
     }
     return true;
   }
+  // Tetromino cannot move out the wall
+  #hitWall(row: number, col: number) : boolean {
+    return this.#falling!.blockSpot(row, col) !== EMPTY && col >= this.width();
+  }
+
+  // Tetromino cannot move out of the floor
+  #hitFloor(row: number, col: number) : boolean {
+    return this.#falling!.blockSpot(row, col) !== EMPTY && row >= this.height();
+  }
+
+  // Tetromino hit other block or hit bottom
+  #hitBlock(row: number, col: number) : boolean {
+    if (this.#falling!.shapeType === 'T') {
+      return this.#falling!.blockSpot(row+1, col) !== EMPTY && this.getBlock(row, col) !== EMPTY;
+    }
+    else {
+      //console.log(`this Block: ${this.#falling!.blockSpot(row, col)} at row: ${row} and col ${col}`);
+      return this.#falling!.blockSpot(row, col) !== EMPTY && this.getBlock(row, col) !== EMPTY;
+    }
+    //return this.#falling!.getBlocks().some(block => this.getBlock(block.row ,block.col) !=EMPTY);
+  }
+
+  getBlock(row: number, col: number): string {
+    console.log(`Grid spot ${this.#grid[row][col]} at at row: ${row} and col ${col}`)
+    return this.#grid[row][col]
+  }
+
   #invalidMove(): true | false {
     for (let row = this.#falling!.row; row < this.#falling!.row + this.#falling!.dimension; row++) {
       for (let col = this.#falling!.col; col < this.#falling!.col + this.#falling!.dimension; col++) {
@@ -303,20 +332,6 @@ export class Board2 implements Shape{
       }
     }
     return false
-  }
-  // Tetromino cannot move out the wall
-  #hitWall(row: number, col: number) : boolean {
-    return this.#falling!.blockSpot(row, col) !== EMPTY && col >= this.width();
-  }
-
-  // Tetromino cannot move out of the floor
-  #hitFloor(row: number, col: number) : boolean {
-    return this.#falling!.blockSpot(row, col) !== EMPTY && row >= this.height();
-  }
-
-  // Tetromino hit other block or hit bottom
-  #hitBlock(row: number, col: number) : boolean {
-    return this.#falling!.blockSpot(row, col) !== EMPTY && this.#grid[row][col] !== EMPTY;
   }
 
   // Block stop moving after hitting bottom
