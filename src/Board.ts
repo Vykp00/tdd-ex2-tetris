@@ -304,6 +304,11 @@ export class Board2 implements Shape{
       this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 1),
         this.#falling!.rotateTetro.bind(this.#falling, 3));
     }
+    // Rotating to Right
+    if (direction === 3) {
+      this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 3),
+        this.#falling!.rotateTetro.bind(this.#falling, 1));
+    }
   }
 
   // Attempt method. If the move is invalid or fail. Use roll back move
