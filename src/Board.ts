@@ -102,12 +102,14 @@ class MovableShape implements Shape {
 class MovableShape2 {
   shape: Tetromino2;
   shapePosition;
-  constructor(shape: Tetromino2 ,
+
+  constructor(shape: Tetromino2,
               row: number,
               col: number) {
     this.shape = shape;
     this.shapePosition = { row: row, col: col }; // Initial position
   }
+
   get row() {
     return this.shapePosition.row;
   }
@@ -115,12 +117,15 @@ class MovableShape2 {
   get col() {
     return this.shapePosition.col;
   }
+
   height(): number {
     return this.shape.height();
   }
+
   width(): number {
     return this.shape.width();
   }
+
   get dimension(): number {
     return this.shape.dimension;
   }
@@ -150,20 +155,20 @@ class MovableShape2 {
       gridCol >= this.col &&
       gridCol < this.col + this.dimension
     ) {
-      const shapeSpot= this.shape.blockSpot(gridRow - this.row, gridCol - this.col);
+      const shapeSpot = this.shape.blockSpot(gridRow - this.row, gridCol - this.col);
       return shapeSpot;
     }
     return EMPTY;
   }
 
   // Move Block Down
-  blockDescent() : void {
+  blockDescent(): void {
     this.shapePosition.row += 1;
   }
 
   // Move up when kick floor
-  moveUp(){
-    this.shapePosition.row -=1;
+  moveUp() {
+    this.shapePosition.row -= 1;
   }
 
   // Move Tetromino to left
@@ -174,6 +179,18 @@ class MovableShape2 {
   // Move Tetromioe to Right
   moveRight() {
     this.shapePosition.col += 1;
+  }
+
+  rotateTetro(direction: number): Tetromino2 {
+    // Rotate Left = 1
+    if (direction == 1) {
+      return this.shape = this.shape.rotateLeft();
+    }
+    // Rotate Right = 3
+    else if (direction == 3) {
+      return this.shape = this.shape.rotateRight()
+    }
+    return this.shape;
   }
 }
 
@@ -276,6 +293,17 @@ export class Board2 implements Shape{
       return; // Only falling block can be moved
     }
     this.#successOrRollBack(this.#falling!.moveRight.bind(this.#falling), this.moveLeft.bind(this));
+  }
+
+  rotateTetro(direction: number) {
+    if (!this.hasFalling()) {
+      return;
+    }
+    // Rotation to Left
+    if (direction === 1) {
+      this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 1),
+        this.#falling!.rotateTetro.bind(this.#falling, 3));
+    }
   }
 
   // Attempt method. If the move is invalid or fail. Use roll back move
