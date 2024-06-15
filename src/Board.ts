@@ -311,7 +311,10 @@ export class Board2 implements Shape{
     // Rotating to Right
     if (direction === 3) {
       this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 3),
-        this.#falling!.rotateTetro.bind(this.#falling, 1));
+        () => {
+          this.#falling!.rotateTetro(1) // Roll back to try Wall Kick
+          this.#kickWall(3, 1)
+        });
     }
   }
 
@@ -325,6 +328,7 @@ export class Board2 implements Shape{
       this.#falling!.rotateTetro(undoDirection)
     });
     if (tryToGoRight) {
+      console.log("Kick Wall to Right work. Rotating...")
       return; // If move to Right work, return function
     }
     else {
@@ -336,6 +340,7 @@ export class Board2 implements Shape{
         this.#falling!.rotateTetro(undoDirection)
       });
       if (tryToGoLeft) {
+        console.log("Kick Wall to Left work. Rotating...")
         return; // If kick to left work, return
       }
       else {
