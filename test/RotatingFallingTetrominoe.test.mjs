@@ -41,7 +41,8 @@ describe("A falling Tetromino follow ARS kick and rotation rules", () => {
   test("wall kick 1 space to the left to rotate left", () => {
     board.rotateTetro(3);
     // Hit wall
-    moveBeyondBoard(board, "right");
+    moveBeyondBoard(board, "right")
+    board.tick();
     // Try to kick wall when rotate left
     board.rotateTetro(1);
     console.log(board.toString());

@@ -1,5 +1,6 @@
 import { Shape, shapeToString } from "./shapeutils";
 import { Tetromino, Tetromino2 } from "./Tetromino";
+import { b } from "vitest/dist/reporters-O4LBziQ_";
 
 const EMPTY = '.';
 
@@ -244,7 +245,7 @@ export class Board2 implements Shape{
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2));
       this.#justFalling = true; // Verify this is a new block
       const shape = newBlock.currentShape()
-      console.log("From Block Spot")
+      console.log("Drop Tetromino")
       console.table(shape);
       //console.log(shape[0]) // first row of the Tetromino
     }
@@ -295,19 +296,52 @@ export class Board2 implements Shape{
     this.#successOrRollBack(this.#falling!.moveRight.bind(this.#falling), this.moveLeft.bind(this));
   }
 
-  rotateTetro(direction: number) {
+  rotateTetro(direction: number) : void {
     if (!this.hasFalling()) {
       return;
     }
     // Rotation to Left
     if (direction === 1) {
       this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 1),
-        this.#falling!.rotateTetro.bind(this.#falling, 3));
+        () => {
+        this.#falling!.rotateTetro(3) // Roll back to try Wall Kick
+        this.#kickWall(1, 3)
+      });
     }
     // Rotating to Right
     if (direction === 3) {
       this.#successOrRollBack(this.#falling!.rotateTetro.bind(this.#falling, 3),
         this.#falling!.rotateTetro.bind(this.#falling, 1));
+    }
+  }
+
+  // Tetrominoe will kick wall to rotate if possible
+  #kickWall(initDirection: number, undoDirection: number): void {
+    const tryToGoRight : boolean = this.#successOrRollBack(() => {
+      this.#falling!.moveRight() // Move to the right to rotate
+      this.#falling!.rotateTetro(initDirection)
+    }, () => {
+      this.#falling!.moveLeft() // Undo Move if failed
+      this.#falling!.rotateTetro(undoDirection)
+    });
+    if (tryToGoRight) {
+      return; // If move to Right work, return function
+    }
+    else {
+      const tryToGoLeft : boolean = this.#successOrRollBack(() => {
+        this.#falling!.moveLeft() // If failed, move to the left to rotate
+        this.#falling!.rotateTetro(initDirection)
+      }, () => {
+        this.#falling!.moveRight() // Undo Move if failed
+        this.#falling!.rotateTetro(undoDirection)
+      });
+      if (tryToGoLeft) {
+        return; // If kick to left work, return
+      }
+      else {
+        console.log("Wall kick and Rotation failed, Position is the same");
+        return;
+      }
     }
   }
 
