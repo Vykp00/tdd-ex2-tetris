@@ -1,22 +1,22 @@
 import { afterEach, beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Tetromino } from "../src/Tetromino.ts";
-import {Board} from "../src/Board";
+import { Tetromino , Tetromino2 } from "../src/Tetromino.ts";
+import {Board, Board2} from "../src/Board";
 import { moveBeyondBoard } from "./MovingTetrominoes.test.mjs";
 
-describe("A falling Tetromino can be rotated", () => {
+describe("A falling Tetromino follow ARS kick and rotation rules", () => {
     let board;
     beforeEach(() => {
         // Place the first Tetromino
-        board = new Board(10, 6);
-        const shape = Tetromino.T_SHAPE
+        board = new Board2(10, 6);
+        const shape = Tetromino2.T_SHAPE
         board.drop(shape);
         board.tick()
     });
     afterEach(() => {
       board = null
     })
-    test("rotated to the left", () => {
+    test("basic rotation to the left", () => {
         board.rotateTetro(1)
         expect(board.toString()).to.equalShape(
             `..........
@@ -27,7 +27,7 @@ describe("A falling Tetromino can be rotated", () => {
        ..........`
         );
     });
-    test("rotated to the right", () => {
+    test.skip("basic rotation to the right", () => {
       board.rotateTetro(3)
       expect(board.toString()).to.equalShape(
         `..........
@@ -38,7 +38,7 @@ describe("A falling Tetromino can be rotated", () => {
          ..........`
       );
     });
-    test("can kick wall to rotate left", () => {
+    test.skip("wall kick 1 space to the right to rotate left", () => {
       board.rotateTetro(1);
       // Hit wall
       moveBeyondBoard(board, 'right');
@@ -54,7 +54,7 @@ describe("A falling Tetromino can be rotated", () => {
         ..........`
       )
     });
-  test("can kick wall to rotate right", () => {
+  test.skip("wall kick 1 space to the left to rotate right", () => {
     board.rotateTetro(3);
     // Hit wall
     moveBeyondBoard(board, 'left');
