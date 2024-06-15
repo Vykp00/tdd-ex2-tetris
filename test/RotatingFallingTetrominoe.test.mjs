@@ -18,7 +18,6 @@ describe("A falling Tetromino follow ARS kick and rotation rules", () => {
   });
   test("basic rotation to the left", () => {
     board.rotateTetro(1);
-    console.log(board.toString());
     expect(board.toString()).to.equalShape(
       `....T.....
        ....TT....
@@ -39,12 +38,13 @@ describe("A falling Tetromino follow ARS kick and rotation rules", () => {
        ..........`,
     );
   });
-  test.skip("wall kick 1 space to the left to rotate left", () => {
-    board.rotateTetro(1);
+  test("wall kick 1 space to the left to rotate left", () => {
+    board.rotateTetro(3);
     // Hit wall
     moveBeyondBoard(board, "right");
     // Try to kick wall when rotate left
     board.rotateTetro(1);
+    console.log(board.toString());
 
     expect(board.toString()).to.equalShape(
       `..........
