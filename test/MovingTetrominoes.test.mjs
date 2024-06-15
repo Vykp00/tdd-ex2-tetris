@@ -143,14 +143,15 @@ describe("When falling a Tetromino touch other blocks", () => {
              OO........OO`
         );
     });
-    test.skip("it can't be moved right", () => {
-        board.drop(Tetromino.I_SHAPE);
+    test("it can't be moved right", () => {
+        board.drop(Tetromino2.L_SHAPE);
+        board.tick()
         moveBeyondBoard(board, "right");
         expect(board.toString()).to.equalShape(
-            `.........I..
-            .........I..
-            OO.......IOO
-            OO.......IOO`
+            `............
+            .........LLL
+            OO.......LOO
+            OO........OO`
         );
     });
     test.skip("it can't be moved down", () => {
