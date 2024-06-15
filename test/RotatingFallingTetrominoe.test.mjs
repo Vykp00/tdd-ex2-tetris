@@ -61,7 +61,6 @@ describe("A falling Tetromino follow ARS kick and rotation rules", () => {
     moveBeyondBoard(board, "left");
     // Try to kick wall when rotate left
     board.rotateTetro(3);
-    console.log(board.toString());
 
     expect(board.toString()).to.equalShape(
       `..........
@@ -78,20 +77,25 @@ describe("A falling tetromino cannot be rotated", () => {
   let board;
   beforeEach(() => {
     // Place the current board
-    board = new Board(5, 7);
-    board.drop(Tetromino.I_SHAPE);
+    board = new Board2(5, 7);
+    board.drop(Tetromino2.I_SHAPE);
+    board.rotateTetro(1)
     moveBeyondBoard(board, "right");
     moveBeyondBoard(board, "down");
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(Tetromino2.I_SHAPE);
+    board.rotateTetro(3)
     moveBeyondBoard(board, "left");
     moveBeyondBoard(board, "down");
   });
   test(", when there's no room to rotate", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(Tetromino2.I_SHAPE);
+    board.rotateTetro(3);
+    board.tick();
     board.tick();
     board.tick();
     moveBeyondBoard(board, "right");
     board.rotateTetro(3);
+    console.log(board.toString());
 
     expect(board.toString()).to.equalShape(
       `.....
