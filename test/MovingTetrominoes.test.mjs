@@ -1,8 +1,7 @@
 import {beforeEach, describe, test} from "vitest";
 import {expect} from "chai";
-import {Board, Board2} from "../src/Board";
+import { Board2} from "../src/Board";
 import { Tetromino } from "../src/Tetromino";
-import { shapeToString } from "../src/shapeutils";
 
 // Level 5: Moving falling Tetrominoes
 export function moveBeyondBoard(board, direction) {

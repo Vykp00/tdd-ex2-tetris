@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, test } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Tetromino} from "../src/Tetromino.ts";
-import { Board, Board2 } from "../src/Board";
+import { Board2 } from "../src/Board";
 import { moveBeyondBoard } from "./MovingTetrominoes.test.mjs";
 
 describe("In ARS wall kicks,", () => {
