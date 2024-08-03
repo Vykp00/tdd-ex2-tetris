@@ -1,7 +1,7 @@
 import {beforeEach, describe, test} from "vitest";
 import {expect} from "chai";
 import {Board, Board2} from "../src/Board";
-import { Tetromino, Tetromino2 } from "../src/Tetromino";
+import { Tetromino } from "../src/Tetromino";
 import { shapeToString } from "../src/shapeutils";
 
 // Level 5: Moving falling Tetrominoes
@@ -30,7 +30,7 @@ describe("A Falling Tetromino", () => {
     });
 
     test("can be moved left", () => {
-        board.drop(Tetromino2.T_SHAPE);
+        board.drop(Tetromino.T_SHAPE);
         board.tick();
         board.moveLeft();
 
@@ -44,7 +44,7 @@ describe("A Falling Tetromino", () => {
         );
     });
     test("can be moved right", () => {
-        board.drop(Tetromino2.T_SHAPE);
+        board.drop(Tetromino.T_SHAPE);
         board.tick();
         board.moveRight();
 
@@ -58,7 +58,7 @@ describe("A Falling Tetromino", () => {
         );
     });
     test("can be moved down", () => {
-        board.drop(Tetromino2.O_SHAPE);
+        board.drop(Tetromino.O_SHAPE);
         board.tick();
         board.tick();
 
@@ -77,7 +77,7 @@ describe("Tetromino cannot be moved beyond the board", () => {
     let board;
     beforeEach(() => {
         board = new Board2(10, 6);
-        board.drop(Tetromino2.O_SHAPE);
+        board.drop(Tetromino.O_SHAPE);
         board.tick();
     });
     test("cannot be moved Left anymore", () => {
@@ -122,15 +122,15 @@ describe("When falling a Tetromino touch other blocks", () => {
     beforeEach(() => {
         // Place the first Tetromino
         board = new Board2(12, 4);
-        board.drop(Tetromino2.O_SHAPE);
+        board.drop(Tetromino.O_SHAPE);
         moveBeyondBoard(board, "right");
         moveBeyondBoard(board, "down");
-        board.drop(Tetromino2.O_SHAPE);
+        board.drop(Tetromino.O_SHAPE);
         moveBeyondBoard(board, "left");
         moveBeyondBoard(board, "down");
     });
     test("it can't be moved left", () => {
-        board.drop(Tetromino2.T_SHAPE);
+        board.drop(Tetromino.T_SHAPE);
         board.tick()
         moveBeyondBoard(board, "left");
         console.log(board.toString())
@@ -144,7 +144,7 @@ describe("When falling a Tetromino touch other blocks", () => {
         );
     });
     test("it can't be moved right", () => {
-        board.drop(Tetromino2.L_SHAPE);
+        board.drop(Tetromino.L_SHAPE);
         board.tick()
         moveBeyondBoard(board, "right");
         expect(board.toString()).to.equalShape(
@@ -155,7 +155,7 @@ describe("When falling a Tetromino touch other blocks", () => {
         );
     });
     test("it can't be moved down", () => {
-        board.drop(Tetromino2.I_SHAPE);
+        board.drop(Tetromino.I_SHAPE);
         moveBeyondBoard(board, "right");
         moveBeyondBoard(board, "down");
         expect(board.toString()).to.equalShape(

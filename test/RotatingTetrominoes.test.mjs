@@ -1,6 +1,6 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { Tetromino, Tetromino2 } from "../src/Tetromino.ts";
+import { Tetromino } from "../src/Tetromino.ts";
 
 function distinctOrientations(shape) {
   const distinct = new Set();
@@ -16,7 +16,7 @@ function distinctOrientations(shape) {
 }
 
 describe("The T shape", () => {
-  const shape = Tetromino2.T_SHAPE;
+  const shape = Tetromino.T_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -49,7 +49,7 @@ describe("The T shape", () => {
 
 
 describe("The I shape", () => {
-  const shape = Tetromino2.I_SHAPE;
+  const shape = Tetromino.I_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -84,7 +84,7 @@ describe("The I shape", () => {
 });
 
 describe("The O shape", () => {
-  const shape = Tetromino2.O_SHAPE;
+  const shape = Tetromino.O_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -116,7 +116,7 @@ describe("The O shape", () => {
 });
 
 describe("The L shape", () => {
-  const shape = Tetromino2.L_SHAPE;
+  const shape = Tetromino.L_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -148,7 +148,7 @@ describe("The L shape", () => {
 });
 
 describe("The J shape", () => {
-  const shape = Tetromino2.J_SHAPE;
+  const shape = Tetromino.J_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -180,7 +180,7 @@ describe("The J shape", () => {
 })
 
 describe("The S shape", () => {
-  const shape = Tetromino2.S_SHAPE;
+  const shape = Tetromino.S_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -212,7 +212,7 @@ describe("The S shape", () => {
 })
 
 describe("The Z shape", () => {
-  const shape = Tetromino2.Z_SHAPE;
+  const shape = Tetromino.Z_SHAPE;
 
   test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(

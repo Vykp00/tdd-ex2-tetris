@@ -2,8 +2,8 @@ import {RotatingShape} from "./RotatingShape";
 import {Shape} from "./shapeutils";
 
 // Level 7 Refactor
-export class Tetromino2 implements Shape {
-  static get T_SHAPE() : Tetromino2 {
+export class Tetromino implements Shape {
+  static get T_SHAPE() : Tetromino {
     // Change: Hard code all directions instead of using Rotating Shape and initialShape
     const directions = [
       [
@@ -27,10 +27,10 @@ export class Tetromino2 implements Shape {
         ['.', 'T', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions, 'T');
+    return new Tetromino(0, 3, directions, 'T');
   };
 
-  static get I_SHAPE() : Tetromino2 {
+  static get I_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.', '.'],
@@ -45,10 +45,10 @@ export class Tetromino2 implements Shape {
         ['.', '.', 'I', '.'],
       ],
     ];
-    return new Tetromino2(0, 4, directions, 'I');
+    return new Tetromino(0, 4, directions, 'I');
   };
 
-  static get O_SHAPE() : Tetromino2 {
+  static get O_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.', '.'],
@@ -56,10 +56,10 @@ export class Tetromino2 implements Shape {
         ['.', 'O', 'O', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions, 'O');
+    return new Tetromino(0, 3, directions, 'O');
   };
 
-  static get L_SHAPE() : Tetromino2 {
+  static get L_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.'],
@@ -82,10 +82,10 @@ export class Tetromino2 implements Shape {
         ['.', 'L', 'L'],
       ],
     ]
-    return new Tetromino2(0, 3, directions, 'L')
+    return new Tetromino(0, 3, directions, 'L')
   };
 
-  static get J_SHAPE() : Tetromino2 {
+  static get J_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.'],
@@ -108,10 +108,10 @@ export class Tetromino2 implements Shape {
         ['.', 'J', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions, 'J');
+    return new Tetromino(0, 3, directions, 'J');
   };
 
-  static get S_SHAPE() : Tetromino2 {
+  static get S_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.'],
@@ -124,10 +124,10 @@ export class Tetromino2 implements Shape {
         ['.', 'S', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions, 'S');
+    return new Tetromino(0, 3, directions, 'S');
   };
 
-  static get Z_SHAPE() : Tetromino2 {
+  static get Z_SHAPE() : Tetromino {
     const directions = [
       [
         ['.', '.', '.'],
@@ -140,7 +140,7 @@ export class Tetromino2 implements Shape {
         ['.', 'Z', '.'],
       ],
     ];
-    return new Tetromino2(0, 3, directions, 'Z');
+    return new Tetromino(0, 3, directions, 'Z');
   }
 
   private readonly directions : string[][][];
@@ -163,10 +163,10 @@ export class Tetromino2 implements Shape {
     return this.directions[this.initDirection];
   }
   rotateRight() {
-    return new Tetromino2(this.initDirection + 1, this.dimension, this.directions, this.shapeType);
+    return new Tetromino(this.initDirection + 1, this.dimension, this.directions, this.shapeType);
   }
   rotateLeft() {
-    return new Tetromino2(this.initDirection - 1, this.dimension, this.directions, this.shapeType);
+    return new Tetromino(this.initDirection - 1, this.dimension, this.directions, this.shapeType);
   }
   width(): number {
     return this.currentShape()[0].length

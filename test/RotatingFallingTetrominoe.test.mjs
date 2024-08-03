@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Tetromino, Tetromino2 } from "../src/Tetromino.ts";
+import { Tetromino } from "../src/Tetromino.ts";
 import { Board, Board2 } from "../src/Board";
 import { moveBeyondBoard } from "./MovingTetrominoes.test.mjs";
 
@@ -9,7 +9,7 @@ describe("A falling Tetromino follow ARS kick and rotation rules", () => {
   beforeEach(() => {
     // Place the first Tetromino
     board = new Board2(10, 6);
-    const shape = Tetromino2.T_SHAPE;
+    const shape = Tetromino.T_SHAPE;
     board.drop(shape);
     board.tick();
   });
@@ -78,17 +78,17 @@ describe("A falling tetromino cannot be rotated", () => {
   beforeEach(() => {
     // Place the current board
     board = new Board2(5, 7);
-    board.drop(Tetromino2.I_SHAPE);
+    board.drop(Tetromino.I_SHAPE);
     board.rotateTetro(1)
     moveBeyondBoard(board, "right");
     moveBeyondBoard(board, "down");
-    board.drop(Tetromino2.I_SHAPE);
+    board.drop(Tetromino.I_SHAPE);
     board.rotateTetro(3)
     moveBeyondBoard(board, "left");
     moveBeyondBoard(board, "down");
   });
   test(", when there's no room to rotate", () => {
-    board.drop(Tetromino2.I_SHAPE);
+    board.drop(Tetromino.I_SHAPE);
     board.rotateTetro(3);
     board.tick();
     board.tick();

@@ -1,6 +1,5 @@
 import { Shape, shapeToString } from "./shapeutils";
-import { Tetromino, Tetromino2 } from "./Tetromino";
-import { b } from "vitest/dist/reporters-O4LBziQ_";
+import { Tetromino } from "./Tetromino";
 
 const EMPTY = '.';
 
@@ -101,10 +100,10 @@ class MovableShape implements Shape {
 }
 
 class MovableShape2 {
-  shape: Tetromino2;
+  shape: Tetromino;
   shapePosition;
 
-  constructor(shape: Tetromino2,
+  constructor(shape: Tetromino,
               row: number,
               col: number) {
     this.shape = shape;
@@ -182,7 +181,7 @@ class MovableShape2 {
     this.shapePosition.col += 1;
   }
 
-  rotateTetro(direction: number): Tetromino2 {
+  rotateTetro(direction: number): Tetromino {
     // Rotate Left = 1
     if (direction == 1) {
       return this.shape = this.shape.rotateLeft();
@@ -232,7 +231,7 @@ export class Board2 implements Shape{
     return shapeToString(this);
   }
 
-  drop(newBlock: Tetromino2 | string): void {
+  drop(newBlock: Tetromino | string): void {
     if (this.hasFalling()) {
       throw new Error('already falling')
     }
@@ -241,7 +240,7 @@ export class Board2 implements Shape{
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2)); // dimension = 1
       console.log(newBlock)
     }
-    if (newBlock instanceof Tetromino2) {
+    if (newBlock instanceof Tetromino) {
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2));
       this.#justFalling = true; // Verify this is a new block
       const shape = newBlock.currentShape()
