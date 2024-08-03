@@ -6,20 +6,6 @@ const EMPTY = '.';
 class Point {
     constructor( public row: number, public col: number) {}
 }
-class Block implements Shape {
-    constructor( private readonly block: string) {
-    }
-
-    width(): number {
-        return 1;
-    }
-    height(): number {
-        return 1;
-    }
-    blockSpot(row: number, col: number): string | undefined {
-        return row === 0 && col === 0 ? this.block : EMPTY;
-    }
-}
 
 export class Block2 {
   block: string;
