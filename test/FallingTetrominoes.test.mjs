@@ -1,6 +1,6 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Board, Board2 } from "../src/Board";
+import { Board, Board } from "../src/Board";
 import { Tetromino } from "../src/Tetromino";
 
 function fallToBottom(board) {
@@ -12,7 +12,7 @@ function fallToBottom(board) {
 describe("Falling ARS tetrominoes", () => {
   let board;
   beforeEach(() => {
-    board = new Board2(10, 6);
+    board = new Board(10, 6);
   });
 
   test("start from the top middle", () => {

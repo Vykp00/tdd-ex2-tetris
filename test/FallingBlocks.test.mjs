@@ -1,11 +1,11 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { Board2} from "../src/Board.ts";
+import { Board} from "../src/Board.ts";
 
 describe("Falling blocks", () => {
   let board;
   beforeEach(() => {
-    board = new Board2(3, 3);
+    board = new Board(3, 3);
   });
   //Test 1
   test("The board starts empty", () => {

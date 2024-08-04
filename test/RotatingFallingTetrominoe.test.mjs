@@ -1,14 +1,14 @@
 import { afterEach, beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.ts";
-import { Board2 } from "../src/Board";
+import { Board } from "../src/Board";
 import { moveBeyondBoard } from "./MovingTetrominoes.test.mjs";
 
 describe("A falling Tetromino follow ARS kick and rotation rules", () => {
   let board;
   beforeEach(() => {
     // Place the first Tetromino
-    board = new Board2(10, 6);
+    board = new Board(10, 6);
     const shape = Tetromino.T_SHAPE;
     board.drop(shape);
     board.tick();
@@ -77,7 +77,7 @@ describe("A falling tetromino cannot be rotated", () => {
   let board;
   beforeEach(() => {
     // Place the current board
-    board = new Board2(5, 7);
+    board = new Board(5, 7);
     board.drop(Tetromino.I_SHAPE);
     board.rotateTetro(1)
     moveBeyondBoard(board, "right");
