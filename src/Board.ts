@@ -7,7 +7,7 @@ class Point {
     constructor( public row: number, public col: number) {}
 }
 
-export class Block2 {
+export class Block {
   block: string;
   dimension = 1;
 
@@ -222,7 +222,7 @@ export class Board2 implements Shape{
       throw new Error('already falling')
     }
     if (typeof newBlock === 'string') {
-      newBlock = new Block2(newBlock)
+      newBlock = new Block(newBlock)
       this.#falling = new MovableShape2(newBlock, 0, Math.floor((this.width() - newBlock.dimension) / 2)); // dimension = 1
       console.log(newBlock)
     }
